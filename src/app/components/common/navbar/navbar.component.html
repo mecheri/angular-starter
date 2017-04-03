@@ -1,0 +1,50 @@
+﻿<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <a class="navbar-brand" href="#">Angular2 Webpack2 Starter</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
+            <ul class="nav navbar-nav">
+
+                <li *ngFor="let item of items" class="{{ item.class }}" dropdown (onToggle)="toggled($event)">
+
+                    <a *ngIf="item.url" routerLink="{{ item.url }}" id="{{ item.id }}"><span>{{ item.name }}</span></a>
+
+                    <a *ngIf="!item.url" class="btn-logout" id="{{ item.id }}" dropdownToggle><span>{{ item.name }}</span></a>
+
+                    <ul *ngIf="item.subItems" class="dropdown-menu">
+                        <li *ngFor="let subItem of item.subItems">
+                            <a routerLink="{{ subItem.url }}" class="dropdown-item">{{ subItem.name }}</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--<li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown" dropdown (onToggle)="toggled($event)">
+                    <a href id="simple-dropdown" dropdownToggle>DropDown</a>
+                    <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+                        <li *ngFor="let choice of items">
+                            <a class="dropdown-item" href="#">{{choice}}</a>
+                        </li>
+                    </ul>
+                </li>-->
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Item</a></li>
+                <li><a href="#">Item</a></li>
+                <li class="active"><a type="button" class="btn-logout" (click)="logout()">Déconnexion <span class="sr-only"></span></a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>

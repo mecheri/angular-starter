@@ -1,0 +1,9 @@
+// surcharge des variables de _variables.scss de bootstrap
+$font-size-base: 14px !default;
+// font path
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+$fa-font-path:'~font-awesome/fonts';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~font-awesome/scss/font-awesome";
+@import "~primeng/resources/themes/bootstrap/theme.css";
+@import "~primeng/resources/primeng.min.css";

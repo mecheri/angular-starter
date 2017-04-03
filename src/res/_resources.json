@@ -1,0 +1,52 @@
+{
+    "roles": {
+        "ADM": "ADM",
+        "USR": "USR"
+    },
+    "menu": {
+        "home": {
+            "name": "Home",
+            "id": "home",
+            "class": "",
+            "icon": "fa fa-home",
+            "url": "/home"
+        },
+        "about": {
+            "name": "About",
+            "id": "about",
+            "class": "",
+            "icon": "fa fa-home",
+            "url": "/ui"
+        },
+        "contact": {
+            "name": "Contact",
+            "id": "contact",
+            "class": "",
+            "icon": "fa fa-home",
+            "url": "/ui"
+        },
+        "admin": {
+            "name": "Administration",
+            "id": "admin",
+            "class": "dropdown",
+            "icon": "fa fa-home",
+            "url": "#",
+            "subItems": [{
+                    "name": "SubItem 1",
+                    "id": "subitem1",
+                    "url": "/admin/subitem1"
+                },
+                {
+                    "name": "SubItem 2",
+                    "id": "subitem2",
+                    "url": "/admin/subitem2"
+                },
+                {
+                    "name": "SubItem 3",
+                    "id": "subitem3",
+                    "url": "/admin/subitem3"
+                }
+            ]
+        }
+    }
+}
