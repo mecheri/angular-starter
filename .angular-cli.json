@@ -18,7 +18,7 @@
         "testTsconfig": "tsconfig.spec.json",
         "prefix": "app",
         "styles": [
-            "styles.css"
+            "sass/app.scss"
         ],
         "scripts": [],
         "environmentSource": "environments/environment.ts",
@@ -48,7 +48,7 @@
         }
     },
     "defaults": {
-        "styleExt": "css",
+        "styleExt": "scss",
         "component": {}
     }
 }
