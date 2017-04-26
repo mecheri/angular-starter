@@ -21,10 +21,10 @@ import { MixinService } from "../../../services/mixin.service";
 })
 export class SidebarComponent implements OnInit {
     // props
-    private rsc: any;
-    private items: any[];
-
-    public isCollapsed: boolean = true;
+    rsc: any;
+    items: any[];
+    isCollapsed: boolean = true;
+    
     public toggled(open: boolean): void {
         console.log("Dropdown is now: ", open);
     }

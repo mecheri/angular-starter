@@ -3,6 +3,7 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from "@angular/core";
 import { Http, Headers, Response } from "@angular/http";
 import { Router } from "@angular/router";
+import "rxjs/add/operator/toPromise";
 
 // Services
 import { NotificationsService } from "angular2-notifications";
@@ -23,12 +24,12 @@ import { CARS } from "../../mocks/cars";
     providers: [NotificationsService, MixinService]
 })
 export class UiComponent implements OnInit, AfterViewInit {
-    private cols: any[];
-    private cars: any[];
-    private bcItems: any[];
-    private date: Date;
-    private fr: any;
-    private isRequesting: boolean;
+    cols: any[];
+    cars: any[];
+    bcItems: any[];
+    date: Date;
+    fr: any;
+    isRequesting: boolean;
 
     /**
      * Creates an instance of UiComponent.
@@ -42,7 +43,7 @@ export class UiComponent implements OnInit, AfterViewInit {
     constructor(private router: Router,
         private http: Http,
         private notifService: NotificationsService,
-        private mixinService: MixinService) {
+        public mixinService: MixinService) {
     }
 
     /**

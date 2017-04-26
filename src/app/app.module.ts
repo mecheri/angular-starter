@@ -6,8 +6,8 @@ import { HttpModule } from '@angular/http';
 
 import { DataTableModule, CalendarModule, ToolbarModule, BreadcrumbModule, SharedModule } from "primeng/primeng";
 import { SimpleNotificationsModule } from "angular2-notifications";
-import { BsDropdownModule } from "ng2-bootstrap/dropdown";
-import { CollapseDirective } from "ng2-bootstrap";
+import { BsDropdownModule } from "ngx-bootstrap";
+import { CollapseModule } from "ngx-bootstrap";
 
 // Routing
 import { routing } from "./app.routing";
@@ -34,6 +34,10 @@ import { SettingsService } from "./services/settings.service";
 import { ResourcesService } from "./services/resources.service";
 import { MixinService } from "./services/mixin.service";
 
+// Factory functions
+import { ResourcesFactory } from "./factory-functions/resources.factory";
+import { SettingsFactory } from "./factory-functions/settings.factory";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,8 +50,7 @@ import { MixinService } from "./services/mixin.service";
     SpinnerComponent,
     BreadCrumbComponent,
     PageNotFoundComponent,
-    AccessDeniedComponent,
-    CollapseDirective
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { MixinService } from "./services/mixin.service";
     SharedModule,
     SimpleNotificationsModule,
     BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
     routing
   ],
   providers: [
@@ -70,13 +74,13 @@ import { MixinService } from "./services/mixin.service";
     ExceptionService,
     SettingsService, {
       provide: APP_INITIALIZER,
-      useFactory: (config: SettingsService) => () => config.load(),
+      useFactory: SettingsFactory,
       deps: [SettingsService],
       multi: true
     },
     ResourcesService, {
       provide: APP_INITIALIZER,
-      useFactory: (rsc: ResourcesService) => () => rsc.load(),
+      useFactory: ResourcesFactory,
       deps: [ResourcesService],
       multi: true
     },
