@@ -16,7 +16,7 @@ import { MenuItem } from "primeng/primeng";
 })
 export class BreadCrumbComponent {
 
-    private items: MenuItem[];
+    items: MenuItem[];
 
     @Input()
     public set data(bcItems: MenuItem[]) {

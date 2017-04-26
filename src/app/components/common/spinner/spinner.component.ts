@@ -6,8 +6,8 @@
 })
 export class SpinnerComponent implements OnDestroy {
     // props 
-    private currentTimeout: any;
-    private isDelayedRunning: boolean = false;
+    currentTimeout: any;
+    isDelayedRunning: boolean = false;
 
     // props special
     @Input() public delay: number = 300;
