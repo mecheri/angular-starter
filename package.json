@@ -8,7 +8,11 @@
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e", 
+        "electron-build": "ng build -aot -op .\\electron\\app", 
+        "electron-config": "copyfiles -u 1 .\\electron\\main.js .\\electron\\package.json .\\electron\\app && copyfiles .\\src\\res\\* .\\electron\\app", 
+        "electron-run": "cd .\\electron\\app && electron .", 
+        "electron": "npm run-script electron-build && npm run-script electron-config && npm run-script electron-run"
     },
     "private": true,
     "dependencies": {
@@ -34,12 +38,14 @@
     "devDependencies": {
         "@angular/cli": "1.0.0",
         "@angular/compiler-cli": "^4.0.0",
+        "electron": "1.6.6",
         "@types/jasmine": "2.5.38",
         "@types/jquery": "^2.0.41",
         "@types/jqueryui": "^1.11.32",
         "@types/node": "~6.0.60",
         "bootstrap-sass": "^3.3.7",
         "codelyzer": "~2.0.0",
+        "copyfiles": "1.2.0",
         "font-awesome": "^4.7.0",
         "jasmine-core": "~2.5.2",
         "jasmine-spec-reporter": "~3.2.0",
@@ -51,6 +57,7 @@
         "karma-jasmine-html-reporter": "^0.2.2",
         "node-sass": "^4.5.2",
         "protractor": "~5.1.0",
+        "rcedit": "0.8.0",
         "ts-node": "~2.0.0",
         "tslint": "~4.5.0",
         "typescript": "~2.2.0"
