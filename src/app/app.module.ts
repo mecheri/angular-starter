@@ -35,8 +35,8 @@ import { ResourcesService } from "./services/resources.service";
 import { MixinService } from "./services/mixin.service";
 
 // Factory functions
-import { ResourcesFactory } from "./factory-functions/resources.factory";
-import { SettingsFactory } from "./factory-functions/settings.factory";
+import { ResourcesFactory } from "./factories/resources.factory";
+import { SettingsFactory } from "./factories/settings.factory";
 
 @NgModule({
   declarations: [
