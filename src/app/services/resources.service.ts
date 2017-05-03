@@ -41,7 +41,7 @@ export class ResourcesService {
 
         return new Promise(resolve => {
             this.http
-                .get("src/res/_resources.json", { headers: headers })
+                .get("res/_resources.json", { headers: headers })
                 .map(res => res.json())
                 .subscribe(
                 (rsc) => {

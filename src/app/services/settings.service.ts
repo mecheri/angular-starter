@@ -38,7 +38,7 @@ export class SettingsService {
 
         return new Promise(resolve => {
             this.http
-                .get("src/res/_settings.json", { headers: headers })
+                .get("res/_settings.json", { headers: headers })
                 .map(res => res.json())
                 .subscribe(
                     (config) => {
