@@ -71,6 +71,12 @@ export class NavbarComponent implements OnInit {
                 url: this.rsc.home.url,
             },
             {
+                name: this.rsc.ui.name,
+                id: this.rsc.ui.id,
+                class: this.rsc.ui.class,
+                url: this.rsc.ui.url,
+            },
+            {
                 name: this.rsc.about.name,
                 id: this.rsc.about.id,
                 class: this.rsc.about.class,

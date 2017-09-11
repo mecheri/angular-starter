@@ -11,6 +11,13 @@
             "icon": "fa fa-home",
             "url": "/home"
         },
+        "ui": {
+            "name": "UI",
+            "id": "ui",
+            "class": "",
+            "icon": "fa fa-home",
+            "url": "/ui"
+        },
         "about": {
             "name": "About",
             "id": "about",

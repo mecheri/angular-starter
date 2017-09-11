@@ -4,7 +4,6 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { AuthService } from "../../services/auth.service";
-import { Auth } from "./../../models/auth";
 
 @Component({
     templateUrl: "./login.component.html",
@@ -12,9 +11,10 @@ import { Auth } from "./../../models/auth";
 })
 export class LoginComponent {
     // props
+    username: string;
+    password: string;
     message: string;
     isRequesting: boolean;
-    model: Auth = new Auth();
 
     /**
      * Creates an instance of LoginComponent.
@@ -55,10 +55,5 @@ export class LoginComponent {
      */
     private stopRefreshing() {
         this.isRequesting = false;
-    }
-
-    logout() {
-        // sessionStorage.removeItem("access_token");
-        // sessionStorage.removeItem("app_user");
     }
 }
