@@ -14,6 +14,7 @@ import { routing } from "./app.routing";
 
 // Components
 import { AppComponent } from "./app.component";
+
 import { IndexComponent } from "./components/index/index.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
