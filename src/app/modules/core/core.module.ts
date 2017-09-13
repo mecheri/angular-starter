@@ -1,11 +1,10 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { SharedModule } from './../../modules/shared/shared.module';
 
 // Services
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { BaseService } from './services/base.service';
 import { ExceptionService } from './services/exception.service';
 import { SettingsService } from './services/settings.service';
@@ -16,15 +15,19 @@ import { MixinService } from './services/mixin.service';
 import { ResourcesFactory } from './factories/resources.factory';
 import { SettingsFactory } from './factories/settings.factory';
 
+// Prevent re-import of the core module
+import { throwIfAlreadyLoaded } from './module-import-guard';
+
 @NgModule({
-    declarations: [],
     imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpModule
+        CommonModule,
+        SharedModule
     ],
+    declarations: [],
+    exports: [SharedModule],
     providers: [
+        AuthService,
+        AuthGuardService,
         BaseService,
         ExceptionService,
         SettingsService, {
@@ -42,4 +45,8 @@ import { SettingsFactory } from './factories/settings.factory';
         MixinService
     ]
 })
-export class CoreModule { }
+export class CoreModule {
+    constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+        throwIfAlreadyLoaded(parentModule, 'CoreModule');
+    }
+}

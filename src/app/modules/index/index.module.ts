@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from './../../modules/shared/shared.module';
 
 // Components
-import { UiComponent } from './components/ui.component';
+import { IndexComponent } from './components/index.component';
 
 // Routing
-import { routing } from "./ui.routing";
+import { routing } from "./index.routing";
 
 @NgModule({
     imports: [
@@ -13,11 +13,11 @@ import { routing } from "./ui.routing";
         routing
     ],
     declarations: [
-        UiComponent
+        IndexComponent
     ],
     exports: [
-        UiComponent
+        IndexComponent
     ],
     providers: []
 })
-export class UiModule { }
+export class IndexModule { }

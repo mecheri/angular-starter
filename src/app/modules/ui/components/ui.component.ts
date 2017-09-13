@@ -7,10 +7,10 @@ import "rxjs/add/operator/toPromise";
 
 // Services
 import { NotificationsService } from "angular2-notifications";
-import { MixinService } from "../../services/mixin.service";
+import { MixinService } from "../../core/services/mixin.service";
 
 // Mocks
-import { CARS } from "../../mocks/cars";
+import { CARS } from "../../../mocks/cars";
 
 /**
  * Composant Accueil

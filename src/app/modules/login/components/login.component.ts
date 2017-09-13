@@ -3,7 +3,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../core/services/auth.service";
 
 @Component({
     templateUrl: "./login.component.html",
@@ -18,11 +18,11 @@ export class LoginComponent {
 
     /**
      * Creates an instance of LoginComponent.
-     * 
+     *
      * @param {Router} router
      * @param {AuthService} authService
      * @param {ResourceService} resourceService
-     * 
+     *
      * @memberOf LoginComponent
      */
     constructor(private router: Router,
@@ -30,8 +30,8 @@ export class LoginComponent {
 
     /**
      * Login to application.
-     * 
-     * 
+     *
+     *
      * @memberOf LoginComponent
      */
     login() {

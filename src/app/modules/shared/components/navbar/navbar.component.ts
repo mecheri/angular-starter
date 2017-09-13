@@ -1,42 +1,42 @@
-"use strict";
+﻿"use strict";
 
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AuthService } from "../../../services/auth.service";
-import { ResourcesService } from "../../../services/resources.service";
-import { MixinService } from "../../../services/mixin.service";
+import { AuthService } from "../../../core/services/auth.service";
+import { ResourcesService } from "../../../core/services/resources.service";
+import { MixinService } from "../../../core/services/mixin.service";
 
 /**
  * Navbar Component
- * 
+ *
  * @export
  * @class NavbarComponent
  * @implements {OnInit}
  */
 @Component({
-    selector: "sidebar",
-    templateUrl: "./sidebar.component.html",
+    selector: "navbar",
+    templateUrl: "./navbar.component.html",
     providers: [MixinService, AuthService]
 })
-export class SidebarComponent implements OnInit {
+export class NavbarComponent implements OnInit {
     // props
     rsc: any;
     items: any[];
     isCollapsed: boolean = true;
-    
+
     public toggled(open: boolean): void {
         console.log("Dropdown is now: ", open);
     }
 
     /**
      * Creates an instance of NavbarComponent.
-     * 
+     *
      * @param {Router} router
      * @param {SettingsService} settingsSvc
      * @param {ResourceService} resourceService
      * @param {MixinService} mixinService
-     * 
+     *
      * @memberOf NavbarComponent
      */
     constructor(private router: Router,
@@ -48,8 +48,8 @@ export class SidebarComponent implements OnInit {
 
     /**
      * Initialisation du composant
-     * 
-     * 
+     *
+     *
      * @memberOf NavbarComponent
      */
     ngOnInit() {
@@ -57,8 +57,8 @@ export class SidebarComponent implements OnInit {
 
     /**
      * Initialise la liste des items du menu
-     * 
-     * 
+     *
+     *
      * @memberOf NavbarComponent
      */
     initItems() {
@@ -69,6 +69,12 @@ export class SidebarComponent implements OnInit {
                 id: this.rsc.home.id,
                 class: this.rsc.home.class,
                 url: this.rsc.home.url,
+            },
+            {
+                name: this.rsc.ui.name,
+                id: this.rsc.ui.id,
+                class: this.rsc.ui.class,
+                url: this.rsc.ui.url,
             },
             {
                 name: this.rsc.about.name,
@@ -93,8 +99,8 @@ export class SidebarComponent implements OnInit {
 
     /**
      * Logout app
-     * 
-     * 
+     *
+     *
      * @memberOf NavbarComponent
      */
     logout() {

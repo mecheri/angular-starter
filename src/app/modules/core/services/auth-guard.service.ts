@@ -25,20 +25,6 @@ export class AuthGuardService implements CanActivate {
             this.router.navigate(["/login"]);
             return false;
         }
-
         return true;
-    }
-
-    /**
-     * Indicates if a child route can be activated
-     *
-     * @param {ActivatedRouteSnapshot} route
-     * @param {RouterStateSnapshot} state
-     * @returns {boolean}
-     *
-     * @memberOf AuthGuardService
-     */
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        return this.canActivate(route, state);
     }
 }

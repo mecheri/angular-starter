@@ -1,14 +1,11 @@
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { IndexComponent } from "./components/index/index.component";
-import { LoginComponent } from "./components/login/login.component";
-import { HomeComponent } from "./components/home/home.component";
-import { UiComponent } from "./components/ui/ui.component";
-import { PageNotFoundComponent } from "./components/common/PageNotFound/page-not-found.component";
-import { AccessDeniedComponent } from "./components/common/accessDenied/access-denied.component";
+// Components
+import { IndexComponent } from "./modules/index/components/index.component";
 
-import { AuthGuardService } from "./services/auth-guard.service";
+// Services
+import { AuthGuardService } from "./modules/core/services/auth-guard.service";
 
 const appRoutes: Routes = [
   {
@@ -18,37 +15,15 @@ const appRoutes: Routes = [
   },
   {
     path: "login",
-    component: LoginComponent,
-  },
-  {
-    path: "accessdenied",
-    component: AccessDeniedComponent
+    loadChildren: "./modules/login/login.module#LoginModule",
   },
   {
     path: "",
-    component: IndexComponent,
-    canActivate: [AuthGuardService],
-    children: [
-      {
-        path: "",
-        redirectTo: "/home",
-        pathMatch: "full"
-      },
-      {
-        path: "home",
-        component: HomeComponent,
-        canActivate: [AuthGuardService]
-      },
-      {
-        path: "ui",
-        component: UiComponent,
-        canActivate: [AuthGuardService]
-      },
-    ]
+    loadChildren: "./modules/index/index.module#IndexModule",
   },
   {
     path: "**",
-    component: PageNotFoundComponent
+    redirectTo: "/home"
   }
 ];
 

@@ -23,14 +23,14 @@
             "id": "about",
             "class": "",
             "icon": "fa fa-home",
-            "url": "/ui"
+            "url": "/home"
         },
         "contact": {
             "name": "Contact",
             "id": "contact",
             "class": "",
             "icon": "fa fa-home",
-            "url": "/ui"
+            "url": "/home"
         },
         "admin": {
             "name": "Administration",
