@@ -3,11 +3,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
+import { Logger } from "../../core/services/logger.service";
 import { AuthService } from "../../core/services/auth.service";
 
 @Component({
     templateUrl: "./login.component.html",
-    providers: [AuthService]
+    providers: []
 })
 export class LoginComponent {
     // props
@@ -18,14 +19,13 @@ export class LoginComponent {
 
     /**
      * Creates an instance of LoginComponent.
-     *
      * @param {Router} router
+     * @param {Logger} logger
      * @param {AuthService} authService
-     * @param {ResourceService} resourceService
-     *
-     * @memberOf LoginComponent
+     * @memberof LoginComponent
      */
     constructor(private router: Router,
+        private logger: Logger,
         private authService: AuthService) { }
 
     /**
@@ -35,7 +35,7 @@ export class LoginComponent {
      * @memberOf LoginComponent
      */
     login() {
-        console.log("logged in");
+        this.logger.log("logged in");
         sessionStorage.setItem("access_token", "qsdqsddsdfdsf");
         this.router.navigate(["/ui"]);
     }

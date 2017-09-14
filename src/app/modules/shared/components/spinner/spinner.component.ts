@@ -5,7 +5,7 @@
     templateUrl: "./spinner.component.html"
 })
 export class SpinnerComponent implements OnDestroy {
-    // props 
+    // props
     currentTimeout: any;
     isDelayedRunning: boolean = false;
 
@@ -32,17 +32,17 @@ export class SpinnerComponent implements OnDestroy {
 
     /**
      * Creates an instance of SpinnerComponent.
-     * 
+     *
      * @param {ChangeDetectorRef} ref
-     * 
+     *
      * @memberOf SpinnerComponent
      */
     constructor(private ref: ChangeDetectorRef) {}
 
     /**
      * Supprime le timeout
-     * 
-     * 
+     *
+     *
      * @memberOf SpinnerComponent
      */
     cancelTimeout(): void {
@@ -52,9 +52,9 @@ export class SpinnerComponent implements OnDestroy {
 
     /**
      * ngOnDestroy
-     * 
+     *
      * @returns {*}
-     * 
+     *
      * @memberOf SpinnerComponent
      */
     ngOnDestroy(): any {

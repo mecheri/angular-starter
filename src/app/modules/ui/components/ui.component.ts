@@ -6,8 +6,9 @@ import { Router } from "@angular/router";
 import "rxjs/add/operator/toPromise";
 
 // Services
-import { NotificationsService } from "angular2-notifications";
+import { Logger } from "../../core/services/logger.service";
 import { MixinService } from "../../core/services/mixin.service";
+import { NotificationsService } from "angular2-notifications";
 
 // Mocks
 import { CARS } from "../../../mocks/cars";
@@ -21,7 +22,7 @@ import { CARS } from "../../../mocks/cars";
  */
 @Component({
     templateUrl: "./ui.component.html",
-    providers: [NotificationsService, MixinService]
+    providers: []
 })
 export class UiComponent implements OnInit, AfterViewInit {
     cols: any[];
@@ -35,13 +36,14 @@ export class UiComponent implements OnInit, AfterViewInit {
      * Creates an instance of UiComponent.
      * @param {Router} router
      * @param {Http} http
+     * @param {Logger} logger
      * @param {NotificationsService} notifService
      * @param {MixinService} mixinService
-     *
-     * @memberOf UiComponent
+     * @memberof UiComponent
      */
     constructor(private router: Router,
         private http: Http,
+        private logger: Logger,
         private notifService: NotificationsService,
         public mixinService: MixinService) {
     }
@@ -125,19 +127,19 @@ export class UiComponent implements OnInit, AfterViewInit {
             .then(response => {
                 setTimeout(function () {
                     this.stopRefreshing();
-                    console.log("ok");
+                    this.logger.log("ok");
                 }.bind(this), 3000);
             })
             .catch(error => {
                 setTimeout(function () {
                     this.stopRefreshing();
-                    console.log("ko");
+                    this.logger.error("ko");
                 }.bind(this), 3000);
             });
     }
 
     onRowSelect(event: any) {
-        console.log(event.data);
+        this.logger.log(event.data);
     }
 
     /**

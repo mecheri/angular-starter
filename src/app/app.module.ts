@@ -8,7 +8,6 @@ import { routing } from './app.routing';
 
 // Components
 import { AppComponent } from './app.component';
-// import { IndexComponent } from "./modules/index/components/index.component";
 
 @NgModule({
   imports: [
@@ -17,10 +16,7 @@ import { AppComponent } from './app.component';
     CoreModule,
     routing
   ],
-  declarations: [
-    AppComponent,
-    // IndexComponent
-  ],
-  bootstrap: [ AppComponent ]
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

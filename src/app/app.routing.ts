@@ -20,6 +20,7 @@ const appRoutes: Routes = [
   {
     path: "",
     loadChildren: "./modules/index/index.module#IndexModule",
+    canActivate: [AuthGuardService]
   },
   {
     path: "**",

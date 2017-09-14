@@ -17,7 +17,7 @@ import { MixinService } from "../../../core/services/mixin.service";
 @Component({
     selector: "navbar",
     templateUrl: "./navbar.component.html",
-    providers: [MixinService, AuthService]
+    providers: []
 })
 export class NavbarComponent implements OnInit {
     // props

@@ -14,8 +14,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { BreadCrumbComponent } from './components/breadCrumb/breadcrumb.component';
-import { PageNotFoundComponent } from './components/PageNotFound/page-not-found.component';
-import { AccessDeniedComponent } from './components/accessDenied/access-denied.component';
 
 @NgModule({
     imports: [
@@ -35,8 +33,6 @@ import { AccessDeniedComponent } from './components/accessDenied/access-denied.c
         SidebarComponent,
         SpinnerComponent,
         BreadCrumbComponent,
-        PageNotFoundComponent,
-        AccessDeniedComponent
     ],
     exports: [
         CommonModule,
@@ -52,9 +48,7 @@ import { AccessDeniedComponent } from './components/accessDenied/access-denied.c
         NavbarComponent,
         SidebarComponent,
         SpinnerComponent,
-        BreadCrumbComponent,
-        PageNotFoundComponent,
-        AccessDeniedComponent
+        BreadCrumbComponent
     ]
 })
 export class SharedModule { }

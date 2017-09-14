@@ -1,8 +1,9 @@
 import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { SharedModule } from './../../modules/shared/shared.module';
 
 // Services
+import { Logger } from './services/logger.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { BaseService } from './services/base.service';
@@ -10,6 +11,7 @@ import { ExceptionService } from './services/exception.service';
 import { SettingsService } from './services/settings.service';
 import { ResourcesService } from './services/resources.service';
 import { MixinService } from './services/mixin.service';
+import { NotificationsService } from 'angular2-notifications';
 
 // Factories
 import { ResourcesFactory } from './factories/resources.factory';
@@ -26,6 +28,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
     declarations: [],
     exports: [SharedModule],
     providers: [
+        Logger,
         AuthService,
         AuthGuardService,
         BaseService,
@@ -42,7 +45,8 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
             deps: [ResourcesService],
             multi: true
         },
-        MixinService
+        MixinService,
+        NotificationsService
     ]
 })
 export class CoreModule {

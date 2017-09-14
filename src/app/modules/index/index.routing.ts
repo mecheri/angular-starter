@@ -16,11 +16,11 @@ const routes: Routes = [
           },
           {
             path: "home",
-            loadChildren: "./modules/home/home.module#HomeModule",
+            loadChildren: "./../../modules/home/home.module#HomeModule",
           },
           {
             path: "ui",
-            loadChildren: "./modules/ui/ui.module#UiModule",
+            loadChildren: "./../../modules/ui/ui.module#UiModule",
           }
         ]
     }
