@@ -7,20 +7,22 @@ import { IndexComponent } from "./components/index.component";
 const routes: Routes = [
     {
         path: "",
-        component: IndexComponent
-    },
-    {
-        path: "",
-        redirectTo: "/home",
-        pathMatch: "full"
-    },
-    {
-        path: "home",
-        loadChildren: "./../../modules/home/home.module#HomeModule",
-    },
-    {
-        path: "ui",
-        loadChildren: "./../../modules/ui/ui.module#UiModule",
+        component: IndexComponent,
+        children: [
+          {
+            path: "",
+            redirectTo: "/home",
+            pathMatch: "full"
+          },
+          {
+            path: "home",
+            loadChildren: "./modules/home/home.module#HomeModule",
+          },
+          {
+            path: "ui",
+            loadChildren: "./modules/ui/ui.module#UiModule",
+          }
+        ]
     }
 ];
 
