@@ -15,6 +15,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { BreadCrumbComponent } from './components/breadCrumb/breadcrumb.component';
 
+// Services
+import { Spinner } from './services/spinner.service';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -49,6 +52,9 @@ import { BreadCrumbComponent } from './components/breadCrumb/breadcrumb.componen
         SidebarComponent,
         SpinnerComponent,
         BreadCrumbComponent
+    ],
+    providers: [
+        Spinner
     ]
 })
 export class SharedModule { }

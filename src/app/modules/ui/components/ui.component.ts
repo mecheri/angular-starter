@@ -8,6 +8,7 @@ import "rxjs/add/operator/toPromise";
 
 // Services
 import { Logger } from "../../core/services/logger.service";
+import { Spinner } from "../../shared/services/spinner.service";
 import { MixinService } from "../../core/services/mixin.service";
 import { NotificationsService } from "angular2-notifications";
 
@@ -38,6 +39,7 @@ export class UiComponent implements OnInit, AfterViewInit {
      * @param {Router} router
      * @param {HttpClient} http
      * @param {Logger} logger
+     * @param {Spinner} SpinnerService
      * @param {NotificationsService} notifService
      * @param {MixinService} mixinService
      * @memberof UiComponent
@@ -45,6 +47,7 @@ export class UiComponent implements OnInit, AfterViewInit {
     constructor(private router: Router,
         private http: HttpClient,
         private logger: Logger,
+        private spinner: Spinner,
         private notifService: NotificationsService,
         public mixinService: MixinService) {
     }
@@ -121,18 +124,18 @@ export class UiComponent implements OnInit, AfterViewInit {
     }
 
     showSpinner() {
-        this.isRequesting = true;
+        this.spinner.show();
         this.http
             .get(`https://api.github.com/emojis`)
             .toPromise()
             .then((resp: HttpResponse<any>) => {
                 setTimeout(() => {
-                    this.stopRefreshing();
+                    this.spinner.hide();
                     this.logger.log('ok');
                 }, 3000);
             })
             .catch(err => {
-                this.stopRefreshing();
+                this.spinner.hide();
                 this.logger.error('ko');
             });
     }
