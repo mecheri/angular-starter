@@ -124,11 +124,16 @@ export class UiComponent implements OnInit, AfterViewInit {
         this.isRequesting = true;
         this.http
             .get(`https://api.github.com/emojis`)
-            .map(response => {
+            .toPromise()
+            .then((resp: HttpResponse<any>) => {
                 setTimeout(() => {
                     this.stopRefreshing();
-                    this.logger.log("ok");
+                    this.logger.log('ok');
                 }, 3000);
+            })
+            .catch(err => {
+                this.stopRefreshing();
+                this.logger.error('ko');
             });
     }
 
