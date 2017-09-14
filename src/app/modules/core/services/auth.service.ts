@@ -1,8 +1,9 @@
 import { Component, Injectable } from "@angular/core";
-import { Headers, Http, RequestOptions, Response } from "@angular/http";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
+import { Logger } from "./logger.service";
 import { SettingsService } from "./settings.service";
 import { ExceptionService } from "./exception.service";
 
@@ -11,14 +12,14 @@ export class AuthService {
 
     /**
      * Creates an instance of AuthService.
-     *
-     * @param {Http} http
+     * @param {HttpClient} http
+     * @param {Logger} logger
      * @param {SettingsService} settingsService
      * @param {ExceptionService} exceptionService
-     *
-     * @memberOf AuthService
+     * @memberof AuthService
      */
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
+        private logger: Logger,
         private settingsService: SettingsService,
         private exceptionService: ExceptionService) { };
 
@@ -32,20 +33,19 @@ export class AuthService {
      *
      * @memberOf AuthService
      */
-    check(login: string, password: string): Promise<any> {
+    check(login: string, password: string): Observable<any> {
         let body = "username=" + login + "&password=" + password;
-        let headers = new Headers();
+        let headers = new HttpHeaders();
         headers.append("Content-Type", "application/x-www-form-urlencoded");
 
         return this.http
             .post(`${this.settingsService.get().apiUrl}/Authentification`,
             body,
             { headers: headers })
-            .toPromise()
-            .then((res: Response) => {
-                this.storeUser(res.json().data);
-                this.storeToken(res.json().data.token_jwt);
-                console.log("Auth is done");
+            .map((res: HttpResponse<any>) => {
+                this.storeUser(res['data']);
+                this.storeToken(res['data'].token_jwt);
+                this.logger.log("Auth is done");
             })
             .catch(this.exceptionService.handleException.bind(this));
     }

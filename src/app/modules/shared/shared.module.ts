@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 // Vendor modules
 import { BreadcrumbModule, CalendarModule, DataTableModule, ToolbarModule } from 'primeng/primeng';
@@ -19,7 +19,7 @@ import { BreadCrumbComponent } from './components/breadCrumb/breadcrumb.componen
     imports: [
         CommonModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         BreadcrumbModule,
         CalendarModule,
         DataTableModule,
@@ -37,7 +37,7 @@ import { BreadCrumbComponent } from './components/breadCrumb/breadcrumb.componen
     exports: [
         CommonModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         BreadcrumbModule,
         CalendarModule,
         ToolbarModule,

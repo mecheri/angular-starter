@@ -1,5 +1,5 @@
 import { Component, Injectable } from "@angular/core";
-import { Headers, Http, RequestOptions, Response } from "@angular/http";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
@@ -22,7 +22,7 @@ export class ResourcesService {
      *
      * @memberOf ResourcesService
      */
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
         private exceptionService: ExceptionService) {
     };
 
@@ -35,14 +35,14 @@ export class ResourcesService {
      * @memberOf ResourcesService
      */
     load() {
-        let headers = new Headers();
+        let headers = new HttpHeaders();
         headers.append("Cache-Control", "no-cache");
         headers.append("Pragma", "no-cache");
 
         return new Promise(resolve => {
             this.http
                 .get("res/_resources.json", { headers: headers })
-                .map(res => res.json())
+                .map((res: HttpResponse<any>) => res)
                 .subscribe(
                 (rsc) => {
                     this.rsc = rsc;

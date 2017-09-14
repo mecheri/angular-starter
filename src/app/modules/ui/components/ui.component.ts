@@ -1,8 +1,9 @@
 ﻿"use strict";
 
 import { Component, ViewChild, OnInit, AfterViewInit } from "@angular/core";
-import { Http, Headers, Response } from "@angular/http";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from "@angular/router";
+import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/toPromise";
 
 // Services
@@ -35,14 +36,14 @@ export class UiComponent implements OnInit, AfterViewInit {
     /**
      * Creates an instance of UiComponent.
      * @param {Router} router
-     * @param {Http} http
+     * @param {HttpClient} http
      * @param {Logger} logger
      * @param {NotificationsService} notifService
      * @param {MixinService} mixinService
      * @memberof UiComponent
      */
     constructor(private router: Router,
-        private http: Http,
+        private http: HttpClient,
         private logger: Logger,
         private notifService: NotificationsService,
         public mixinService: MixinService) {
@@ -123,18 +124,11 @@ export class UiComponent implements OnInit, AfterViewInit {
         this.isRequesting = true;
         this.http
             .get(`https://api.github.com/emojis`)
-            .toPromise()
-            .then(response => {
-                setTimeout(function () {
+            .map(response => {
+                setTimeout(() => {
                     this.stopRefreshing();
                     this.logger.log("ok");
-                }.bind(this), 3000);
-            })
-            .catch(error => {
-                setTimeout(function () {
-                    this.stopRefreshing();
-                    this.logger.error("ko");
-                }.bind(this), 3000);
+                }, 3000);
             });
     }
 

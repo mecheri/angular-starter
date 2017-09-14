@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Headers, Http, Response } from "@angular/http";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 /**
  * Application Base Service

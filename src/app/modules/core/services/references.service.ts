@@ -1,5 +1,5 @@
 import { Component, Injectable } from "@angular/core";
-import { Headers, Http, RequestOptions, Response } from "@angular/http";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from "@angular/router";
 import "rxjs/add/operator/toPromise";
 
@@ -19,7 +19,7 @@ export class ReferencesService extends BaseService {
      *
      * @memberOf ReferencesService
      */
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
         private router: Router,
         private settingsService: SettingsService,
         private exceptionService: ExceptionService) {

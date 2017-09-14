@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import { Component, ViewChild, OnInit, AfterViewInit } from "@angular/core";
-import { Http, Headers, Response } from "@angular/http";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from "@angular/router";
 
 /**
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
      * @memberOf HomeComponent
      */
     constructor(private router: Router,
-                private http: Http) {
+                private http: HttpClient) {
     }
 
     /**
