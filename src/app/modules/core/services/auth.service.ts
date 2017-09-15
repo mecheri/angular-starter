@@ -39,10 +39,10 @@ export class AuthService {
         headers.append("Content-Type", "application/x-www-form-urlencoded");
 
         return this.http
-            .post(`${this.settingsService.get().apiUrl}/Authentification`,
+            .post<HttpResponse<any>>(`${this.settingsService.get().apiUrl}/Authentification`,
             body,
             { headers: headers })
-            .map((res: HttpResponse<any>) => {
+            .map(res => {
                 this.storeUser(res['data']);
                 this.storeToken(res['data'].token_jwt);
                 this.logger.log("Auth is done");

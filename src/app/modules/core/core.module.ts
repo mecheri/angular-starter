@@ -1,6 +1,12 @@
 import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './../../modules/shared/shared.module';
+
+// Interceptors
+import { TestInterceptor } from './interceptors/test.interceptor';
+
+// Prevent re-import of the core module
+import { throwIfAlreadyLoaded } from './module-import-guard';
 
 // Services
 import { Logger } from './services/logger.service';
@@ -17,22 +23,24 @@ import { NotificationsService } from 'angular2-notifications';
 import { ResourcesFactory } from './factories/resources.factory';
 import { SettingsFactory } from './factories/settings.factory';
 
-// Prevent re-import of the core module
-import { throwIfAlreadyLoaded } from './module-import-guard';
-
 @NgModule({
     imports: [
-        CommonModule,
+        HttpClientModule,
         SharedModule
     ],
     declarations: [],
-    exports: [SharedModule],
+    exports: [
+        HttpClientModule,
+        SharedModule
+    ],
     providers: [
         Logger,
         AuthService,
         AuthGuardService,
         BaseService,
         ExceptionService,
+        MixinService,
+        NotificationsService,
         SettingsService, {
             provide: APP_INITIALIZER,
             useFactory: SettingsFactory,
@@ -45,8 +53,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
             deps: [ResourcesService],
             multi: true
         },
-        MixinService,
-        NotificationsService
+        { provide: HTTP_INTERCEPTORS, useClass: TestInterceptor, multi: true }
     ]
 })
 export class CoreModule {
