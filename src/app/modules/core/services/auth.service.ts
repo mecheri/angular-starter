@@ -86,7 +86,7 @@ export class AuthService {
      * @memberOf AuthService
      */
     isLoggedIn() {
-        let token = sessionStorage.getItem("access_token");
+        let token = localStorage.getItem("access_token");
         return token !== null ? true : false;
     }
 }

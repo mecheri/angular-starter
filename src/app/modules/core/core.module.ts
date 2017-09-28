@@ -3,7 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './../../modules/shared/shared.module';
 
 // Interceptors
-import { TestInterceptor } from './interceptors/test.interceptor';
+import { HttpRequestInterceptor } from './interceptors/http-request.interceptor';
 
 // Prevent re-import of the core module
 import { throwIfAlreadyLoaded } from './module-import-guard';
@@ -12,7 +12,6 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { Logger } from './services/logger.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
-import { BaseService } from './services/base.service';
 import { ExceptionService } from './services/exception.service';
 import { SettingsService } from './services/settings.service';
 import { ResourcesService } from './services/resources.service';
@@ -37,23 +36,28 @@ import { SettingsFactory } from './factories/settings.factory';
         Logger,
         AuthService,
         AuthGuardService,
-        BaseService,
         ExceptionService,
         MixinService,
         NotificationsService,
-        SettingsService, {
+        SettingsService,
+        {
             provide: APP_INITIALIZER,
             useFactory: SettingsFactory,
             deps: [SettingsService],
             multi: true
         },
-        ResourcesService, {
+        ResourcesService,
+        {
             provide: APP_INITIALIZER,
             useFactory: ResourcesFactory,
             deps: [ResourcesService],
             multi: true
         },
-        { provide: HTTP_INTERCEPTORS, useClass: TestInterceptor, multi: true }
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpRequestInterceptor,
+            multi: true
+        }
     ]
 })
 export class CoreModule {

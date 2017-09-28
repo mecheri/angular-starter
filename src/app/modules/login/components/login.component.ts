@@ -36,7 +36,7 @@ export class LoginComponent {
      */
     login() {
         this.logger.log("logged in");
-        sessionStorage.setItem("access_token", "qsdqsddsdfdsf");
+        localStorage.setItem("access_token", "qsdqsddsdfdsf");
         this.router.navigate(["/ui"]);
     }
 

@@ -3,12 +3,11 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from "@angular/router";
 import "rxjs/add/operator/toPromise";
 
-import { BaseService } from "../services/base.service";
 import { ExceptionService } from "../services/exception.service";
 import { SettingsService } from "../services/settings.service";
 
 @Injectable()
-export class ReferencesService extends BaseService {
+export class ReferencesService {
 
     /**
      * Creates an instance of ReferencesService.
@@ -23,6 +22,5 @@ export class ReferencesService extends BaseService {
         private router: Router,
         private settingsService: SettingsService,
         private exceptionService: ExceptionService) {
-        super();
     }
 }
