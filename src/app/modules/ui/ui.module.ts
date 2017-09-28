@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from './../../modules/shared/shared.module';
 
+// Routing Module
+import { UiRoutingModule } from "./ui-routing.module";
+
 // Components
 import { UiComponent } from './components/ui.component';
-
-// Routing
-import { routing } from "./ui.routing";
 
 @NgModule({
     imports: [
         SharedModule,
-        routing
+        UiRoutingModule
     ],
     declarations: [
         UiComponent

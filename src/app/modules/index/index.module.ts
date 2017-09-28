@@ -4,13 +4,13 @@ import { SharedModule } from './../../modules/shared/shared.module';
 // Components
 import { IndexComponent } from './components/index.component';
 
-// Routing
-import { routing } from "./index.routing";
+// Routing Module
+import { IndexRoutingModule } from "./index-routing.module";
 
 @NgModule({
     imports: [
         SharedModule,
-        routing
+        IndexRoutingModule
     ],
     declarations: [
         IndexComponent

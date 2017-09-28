@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './modules/core/core.module';
 
-// Routing
-import { routing } from './app.routing';
+// Routing Module
+import { AppRoutingModule }   from './app-routing.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    routing
+    AppRoutingModule,
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]

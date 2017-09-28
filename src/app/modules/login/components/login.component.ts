@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { Logger } from "../../core/services/logger.service";
 import { AuthService } from "../../core/services/auth.service";
@@ -20,11 +20,13 @@ export class LoginComponent {
     /**
      * Creates an instance of LoginComponent.
      * @param {Router} router
+     * @param {ActivatedRoute} route
      * @param {Logger} logger
      * @param {AuthService} authService
      * @memberof LoginComponent
      */
     constructor(private router: Router,
+        private route: ActivatedRoute,
         private logger: Logger,
         private authService: AuthService) { }
 
@@ -37,7 +39,7 @@ export class LoginComponent {
     login() {
         this.logger.log("logged in");
         localStorage.setItem("access_token", "qsdqsddsdfdsf");
-        this.router.navigate(["/ui"]);
+        this.router.navigate([this.authService.redirectUrl]);
     }
 
     /**

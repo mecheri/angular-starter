@@ -12,6 +12,7 @@ import { Spinner } from "../../shared/services/spinner.service";
 import { MixinService } from "../../core/services/mixin.service";
 import { NotificationsService } from "angular2-notifications";
 
+// Animations
 import { slideInDownAnimation } from '../../../animations';
 
 // Mocks

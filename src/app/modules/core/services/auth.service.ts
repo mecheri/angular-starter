@@ -10,6 +10,9 @@ import { ExceptionService } from "./exception.service";
 @Injectable()
 export class AuthService {
 
+    // store the URL so we can redirect after logging in
+    redirectUrl: string = "/home";
+
     /**
      * Creates an instance of AuthService.
      * @param {HttpClient} http
