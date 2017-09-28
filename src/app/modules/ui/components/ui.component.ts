@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-import { Component, ViewChild, OnInit, AfterViewInit } from "@angular/core";
+import { Component, ViewChild, OnInit, AfterViewInit, HostBinding } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Rx";
@@ -11,6 +11,8 @@ import { Logger } from "../../core/services/logger.service";
 import { Spinner } from "../../shared/services/spinner.service";
 import { MixinService } from "../../core/services/mixin.service";
 import { NotificationsService } from "angular2-notifications";
+
+import { slideInDownAnimation } from '../../../animations';
 
 // Mocks
 import { CARS } from "../../../mocks/cars";
@@ -24,9 +26,14 @@ import { CARS } from "../../../mocks/cars";
  */
 @Component({
     templateUrl: "./ui.component.html",
-    providers: []
+    providers: [],
+    animations: [slideInDownAnimation]
 })
 export class UiComponent implements OnInit, AfterViewInit {
+    @HostBinding('@routeAnimation') routeAnimation = true;
+    @HostBinding('style.display')   display = 'block';
+    @HostBinding('style.position')  position = 'absolute';
+
     cols: any[];
     cars: any[];
     bcItems: any[];
