@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
+import { NgModule, Optional, SkipSelf, ErrorHandler, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './../../modules/shared/shared.module';
 
@@ -17,6 +17,9 @@ import { SettingsService } from './services/settings.service';
 import { ResourcesService } from './services/resources.service';
 import { MixinService } from './services/mixin.service';
 import { NotificationsService } from 'angular2-notifications';
+
+// Handlers
+import { GlobalErrorHandler } from './handlers/error.handler';
 
 // Factories
 import { ResourcesFactory } from './factories/resources.factory';
@@ -57,6 +60,10 @@ import { SettingsFactory } from './factories/settings.factory';
             provide: HTTP_INTERCEPTORS,
             useClass: HttpRequestInterceptor,
             multi: true
+        },
+        {
+            provide: ErrorHandler,
+            useClass: GlobalErrorHandler
         }
     ]
 })

@@ -7,6 +7,9 @@ import { UiRoutingModule } from "./ui-routing.module";
 // Components
 import { UiComponent } from './components/ui.component';
 
+// Services
+import { UiService } from './services/ui.service';
+
 @NgModule({
     imports: [
         SharedModule,
@@ -18,6 +21,8 @@ import { UiComponent } from './components/ui.component';
     exports: [
         UiComponent
     ],
-    providers: []
+    providers: [
+        UiService
+    ]
 })
 export class UiModule { }

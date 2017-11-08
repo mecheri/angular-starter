@@ -1,22 +1,22 @@
-﻿"use strict";
+﻿'use strict';
 
-import { Component, ViewChild, OnInit, AfterViewInit, HostBinding } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Router } from "@angular/router";
-import { Observable } from "rxjs/Rx";
-import "rxjs/add/operator/toPromise";
+import { Component, ViewChild, OnInit, AfterViewInit, HostBinding } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/toPromise';
 
 // Services
-import { Logger } from "../../core/services/logger.service";
-import { Spinner } from "../../shared/services/spinner.service";
-import { MixinService } from "../../core/services/mixin.service";
-import { NotificationsService } from "angular2-notifications";
+import { Logger } from '../../core/services/logger.service';
+import { Spinner } from '../../shared/services/spinner.service';
+import { MixinService } from '../../core/services/mixin.service';
+import { NotificationsService } from 'angular2-notifications';
+import { UiService } from '../services/ui.service';
 
 // Animations
 import { slideInDownAnimation } from '../../../animations';
 
 // Mocks
-import { CARS } from "../../../mocks/cars";
+import { CARS } from '../../../mocks/cars';
 
 /**
  * Composant Accueil
@@ -26,14 +26,13 @@ import { CARS } from "../../../mocks/cars";
  * @implements {OnInit}
  */
 @Component({
-    templateUrl: "./ui.component.html",
-    providers: [],
+    templateUrl: './ui.component.html',
     animations: [slideInDownAnimation]
 })
 export class UiComponent implements OnInit, AfterViewInit {
     @HostBinding('@routeAnimation') routeAnimation = true;
-    @HostBinding('style.display')   display = 'block';
-    @HostBinding('style.position')  position = 'absolute';
+    @HostBinding('style.display') display = 'block';
+    @HostBinding('style.position') position = 'absolute';
 
     cols: any[];
     cars: any[];
@@ -45,19 +44,20 @@ export class UiComponent implements OnInit, AfterViewInit {
     /**
      * Creates an instance of UiComponent.
      * @param {Router} router
-     * @param {HttpClient} http
-     * @param {Logger} logger
-     * @param {Spinner} SpinnerService
      * @param {NotificationsService} notifService
+     * @param {Logger} logger
+     * @param {Spinner} spinner
      * @param {MixinService} mixinService
+     * @param {UiService} uiService
      * @memberof UiComponent
      */
-    constructor(private router: Router,
-        private http: HttpClient,
+    constructor(
+        private router: Router,
+        private notifService: NotificationsService,
         private logger: Logger,
         private spinner: Spinner,
-        private notifService: NotificationsService,
-        public mixinService: MixinService) {
+        private mixinService: MixinService,
+        private uiService: UiService) {
     }
 
     /**
@@ -65,28 +65,28 @@ export class UiComponent implements OnInit, AfterViewInit {
      */
     ngOnInit() {
         this.cols = [
-            { field: "vin", header: "Vin" },
-            { field: "year", header: "Year" },
-            { field: "brand", header: "Brand" },
-            { field: "color", header: "Color" }
+            { field: 'vin', header: 'Vin' },
+            { field: 'year', header: 'Year' },
+            { field: 'brand', header: 'Brand' },
+            { field: 'color', header: 'Color' }
         ];
 
         this.cars = CARS;
         this.fr = {
             firstDayOfWeek: 0,
-            dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-            dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-            dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-            monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-            monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Juil", "Auo", "Sep", "Oct", "Nov", "Dec"]
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Auo', 'Sep', 'Oct', 'Nov', 'Dec']
         };
         this.bcItems = [
-            { label: "Categories", },
-            { label: "Sports", },
-            { label: "Football", },
-            { label: "Spain", },
-            { label: "F.C. Barcelona", },
-            { label: "Lionel Messi", url: "https://en.wikipedia.org/wiki/Lionel_Messi" },
+            { label: 'Categories', },
+            { label: 'Sports', },
+            { label: 'Football', },
+            { label: 'Spain', },
+            { label: 'F.C. Barcelona', },
+            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi' },
         ];
     }
 
@@ -104,48 +104,46 @@ export class UiComponent implements OnInit, AfterViewInit {
 
     successMsg() {
         this.notifService.success(
-            "Some Title",
-            "Some Content",
+            'Some Title',
+            'Some Content',
             this.mixinService.notifOpts
         );
     }
     infoMsg() {
         this.notifService.info(
-            "Some Title",
-            "Some Content",
+            'Some Title',
+            'Some Content',
             this.mixinService.notifOpts
         );
     }
     warnMsg() {
         this.notifService.alert(
-            "Some Title",
-            "Some Content",
+            'Some Title',
+            'Some Content',
             this.mixinService.notifOpts
         );
     }
     errorMsg() {
         this.notifService.error(
-            "Some Title",
-            "Some Content",
+            'Some Title',
+            'Some Content',
             this.mixinService.notifOpts
         );
     }
 
     showSpinner() {
         this.spinner.show();
-        this.http
-            .get(`https://api.github.com/emojis`)
-            .toPromise()
-            .then((resp: HttpResponse<any>) => {
-                setTimeout(() => {
-                    this.spinner.hide();
-                    this.logger.log('ok');
-                }, 3000);
-            })
-            .catch(err => {
-                this.spinner.hide();
-                this.logger.error('ko');
-            });
+        this.uiService
+            .testCall()
+            .finally(() => this.spinner.hide())
+            .subscribe(
+                data => {
+                    this.logger.log(data);
+                },
+                error => {
+                    this.logger.error(error);
+                }
+            );
     }
 
     onRowSelect(event: any) {

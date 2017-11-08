@@ -50,7 +50,7 @@ export class AuthService {
                 this.storeToken(res['data'].token_jwt);
                 this.logger.log("Auth is done");
             })
-            .catch(this.exceptionService.handleException.bind(this));
+            .catch(this.exceptionService.handleError);
     }
 
     /**

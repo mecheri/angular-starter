@@ -12,11 +12,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = localStorage.getItem('access_token');
-        if (token) {
-            req = req.clone({ headers: req.headers.set('X-JWT-TOKEN', token) });
-            req = req.clone({ headers: req.headers.set('Content-Type', 'application/json; charset=utf-8') });
-        }
+        // const token = localStorage.getItem('access_token');
+        // if (token) {
+        //     req = req.clone({ headers: req.headers.set('X-JWT-TOKEN', token) });
+        //     req = req.clone({ headers: req.headers.set('Content-Type', 'application/json; charset=utf-8') });
+        // }
 
         return next.handle(req);
     }
