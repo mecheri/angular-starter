@@ -134,14 +134,18 @@ export class UiComponent implements OnInit, AfterViewInit {
     showSpinner() {
         this.spinner.show();
         this.uiService
-            .testCall()
+            .call()
             .finally(() => this.spinner.hide())
             .subscribe(
                 data => {
                     this.logger.log(data);
                 },
                 error => {
-                    this.logger.error(error);
+                    this.notifService.error(
+                        'Error',
+                        error,
+                        this.mixinService.notifOpts
+                    );
                 }
             );
     }

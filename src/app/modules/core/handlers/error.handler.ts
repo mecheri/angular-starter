@@ -28,7 +28,8 @@ export class GlobalErrorHandler implements ErrorHandler {
      */
     handleError(error) {
         const logger = this.injector.get(Logger);
-        if (window.confirm('Une error javascipt s\'est produite !!!')) {
+        logger.log(error);
+        if (window.confirm('Une erreur javascipt s\'est produite !')) {
             window.location.reload();
         }
     }

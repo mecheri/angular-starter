@@ -5,7 +5,7 @@ import "rxjs/add/operator/map";
 
 import { Logger } from "./logger.service";
 import { SettingsService } from "./settings.service";
-import { ExceptionService } from "./exception.service";
+import { HttpResponseService } from "./http-response.service";
 
 @Injectable()
 export class AuthService {
@@ -18,13 +18,13 @@ export class AuthService {
      * @param {HttpClient} http
      * @param {Logger} logger
      * @param {SettingsService} settingsService
-     * @param {ExceptionService} exceptionService
+     * @param {HttpResponseService} httpRespService
      * @memberof AuthService
      */
     constructor(private http: HttpClient,
         private logger: Logger,
         private settingsService: SettingsService,
-        private exceptionService: ExceptionService) { };
+        private httpRespService: HttpResponseService) { };
 
     /**
      * Authentification sur le serveur
@@ -50,7 +50,7 @@ export class AuthService {
                 this.storeToken(res['data'].token_jwt);
                 this.logger.log("Auth is done");
             })
-            .catch(this.exceptionService.handleError);
+            .catch(this.httpRespService.handleError);
     }
 
     /**

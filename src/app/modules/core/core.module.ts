@@ -12,7 +12,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { Logger } from './services/logger.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
-import { ExceptionService } from './services/exception.service';
+import { HttpResponseService } from './services/http-response.service';
 import { SettingsService } from './services/settings.service';
 import { ResourcesService } from './services/resources.service';
 import { MixinService } from './services/mixin.service';
@@ -39,7 +39,7 @@ import { SettingsFactory } from './factories/settings.factory';
         Logger,
         AuthService,
         AuthGuardService,
-        ExceptionService,
+        HttpResponseService,
         MixinService,
         NotificationsService,
         SettingsService,

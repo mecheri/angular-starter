@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
-import { ExceptionService } from "./exception.service";
+import { HttpResponseService } from "./http-response.service";
 
 /**
  * Service to handle global application resources
@@ -17,13 +17,12 @@ export class ResourcesService {
 
     /**
      * Creates an instance of ResourcesService.
-     * @param {Http} http
-     * @param {ExceptionService} exceptionService
-     *
-     * @memberOf ResourcesService
+     * @param {HttpClient} http
+     * @param {HttpResponseService} httpRespService
+     * @memberof ResourcesService
      */
     constructor(private http: HttpClient,
-        private exceptionService: ExceptionService) {
+        private httpRespService: HttpResponseService) {
     };
 
     /**
@@ -44,12 +43,12 @@ export class ResourcesService {
                 .get("res/_resources.json", { headers: headers })
                 .map((res: HttpResponse<any>) => res)
                 .subscribe(
-                (rsc) => {
-                    this.rsc = rsc;
-                    resolve(true);
-                },
-                (error) => console.log(error),
-                () => console.log("Resources loaded")
+                    (rsc) => {
+                        this.rsc = rsc;
+                        resolve(true);
+                    },
+                    (error) => console.log(error),
+                    () => console.log("Resources loaded")
                 );
         });
     }

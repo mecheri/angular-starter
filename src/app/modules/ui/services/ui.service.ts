@@ -7,7 +7,7 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 
 // Services
-import { ExceptionService } from '../../core/services/exception.service';
+import { HttpResponseService } from '../../core/services/http-response.service';
 
 @Injectable()
 export class UiService {
@@ -15,12 +15,12 @@ export class UiService {
     /**
      * Creates an instance of UiService.
      * @param {HttpClient} http
-     * @param {ExceptionService} exceptionService
+     * @param {HttpResponseService} httpRespService
      * @memberof UiService
      */
     constructor(
         private http: HttpClient,
-        private exceptionService: ExceptionService
+        private httpRespService: HttpResponseService
     ) { }
 
     /**
@@ -29,10 +29,10 @@ export class UiService {
      * @returns {Observable<any>}
      * @memberof UiService
      */
-    testCall(): Observable<any> {
+    call(): Observable<any> {
         return this.http
             .get(`https://api.github.com/emojiss`)
             .map((response: HttpResponse<any>) => response)
-            .catch(this.exceptionService.handleError);
+            .catch(this.httpRespService.handleError);
     }
 }
