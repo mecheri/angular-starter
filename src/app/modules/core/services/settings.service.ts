@@ -1,8 +1,19 @@
-import { Component, Injectable } from "@angular/core";
+import { Component, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable } from "rxjs/Rx";
 
-import "rxjs/add/operator/map";
+// Services
+import { Logger } from './../services/logger.service';
+import { HttpResponseService } from './../services/http-response.service';
+
+/**
+ * App config interface
+ *
+ * @interface IConfig
+ */
+interface IConfig {
+    version: string,
+    apiUrl: string
+}
 
 /**
  * Service to handle global application settings
@@ -12,47 +23,47 @@ import "rxjs/add/operator/map";
  */
 @Injectable()
 export class SettingsService {
-    config: any;
+    public config: IConfig;
 
     /**
      * Creates an instance of SettingsService.
-     *
-     * @param {Http} http
-     *
-     * @memberOf SettingsService
+     * @param {HttpClient} http
+     * @param {Logger} logger
+     * @param {HttpResponseService} httpRespService
+     * @memberof SettingsService
      */
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private logger: Logger,
+        private httpRespService: HttpResponseService
+    ) { }
 
     /**
      * Load Application Settings
      *
-     * @param {() => any} [callback]
      * @returns
-     *
-     * @memberOf SettingsService
+     * @memberof SettingsService
      */
-    load(callback?: () => any) {
+    load() {
         let headers = new HttpHeaders();
-        headers.append("Cache-Control", "no-cache");
-        headers.append("Pragma", "no-cache");
-
+        headers.set('Cache-Control', 'no-cache');
+        headers.set('Pragma', 'no-cache');
         return new Promise(resolve => {
             this.http
-                .get("res/_settings.json", { headers: headers })
-                .map((res: HttpResponse<any>) => res)
+                .get(`res/_settings.json`, { headers: headers })
                 .subscribe(
-                (config) => {
-                    this.config = config;
-                    resolve(true);
-                },
-                (error) => console.log(error),
-                () => console.log("Settings loaded")
+                    (config: IConfig) => {
+                        this.config = config;
+                        resolve(true);
+                    },
+                    (error) => this.httpRespService.handleError,
+                    () => this.logger.trace('Settings loaded')
                 );
         });
     }
 
     /**
-     * Lecture des ressources
+     * Read settings
      *
      * @returns
      *
@@ -60,19 +71,5 @@ export class SettingsService {
      */
     get() {
         return this.config;
-    }
-
-    /**
-     * Stockage des ressources
-     *
-     * @param {*} settings
-     *
-     * @memberOf SettingsService
-     */
-    store(settings: any) {
-        sessionStorage.setItem("app_settings", null);
-        if (settings) {
-            sessionStorage.setItem("app_settings", settings);
-        }
     }
 }

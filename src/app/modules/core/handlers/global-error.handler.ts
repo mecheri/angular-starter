@@ -1,10 +1,11 @@
-import { ErrorHandler, Injectable, Injector } from '@angular/core';
+import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Services
 import { Logger } from '../services/logger.service';
 
 /**
- * App global error handler
+ * App global javascript error handler
  *
  * @export
  * @class GlobalErrorHandler
@@ -16,21 +17,24 @@ export class GlobalErrorHandler implements ErrorHandler {
     /**
      * Creates an instance of GlobalErrorHandler.
      * @param {Injector} injector
+     * @param {NgZone} zone
      * @memberof GlobalErrorHandler
      */
-    constructor(private injector: Injector) { }
+    constructor(
+        private injector: Injector,
+        private zone: NgZone
+    ) { }
 
     /**
-     * Handle error
+     * Handle global errors
      *
      * @param {any} error
      * @memberof GlobalErrorHandler
      */
     handleError(error) {
         const logger = this.injector.get(Logger);
-        logger.log(error);
-        if (window.confirm('Une erreur javascipt s\'est produite !')) {
-            window.location.reload();
-        }
+        const router = this.injector.get(Router);
+        logger.error(error);
+        this.zone.run(() => router.navigate(['error']));
     }
 }

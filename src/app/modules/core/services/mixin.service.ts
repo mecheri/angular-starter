@@ -1,59 +1,126 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
+// Constants
+import { Constants } from './constants.service';
+
+// jQuery
+import 'jquery';
+import 'jquery-ui';
+declare const $: any;
+
+/**
+ * Application mixin service
+ *
+ * @export
+ * @class MixinService
+ */
 @Injectable()
 export class MixinService {
     public fr: any;
     public notifOpts: any;
     public emptyMessage: string;
     public maskDate: any[];
-    public maskNumber: any;
+    public maskPhone: any[];
+    public maskEmail: any[];
+    public maskZipCode: any[];
 
     /**
      * Creates an instance of MixinService.
      *
-     *
      * @memberOf MixinService
      */
-    constructor() {
+    constructor(
+        private location: Location,
+        private constants: Constants,
+    ) {
         this.fr = {
             firstDayOfWeek: 0,
-            dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-            dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-            dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-            monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-            monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Juil", "Auo", "Sep", "Oct", "Nov", "Dec"]
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Auo', 'Sep', 'Oct', 'Nov', 'Dec']
         };
         this.notifOpts = {
-            position: ["bottom", "right"],
+            position: ['bottom', 'right'],
             clickToClose: true,
             maxLength: 100
         };
-        this.emptyMessage = "Aucun résultat trouvé";
-        this.maskNumber = [/^\d+$/];
-        this.maskDate = [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
+        this.emptyMessage = 'Aucun résultat trouvé';
     }
 
     /**
      * Get calender options
      *
-     * @param {((date: string) => void)} onSelect
+     * @param {((date: string) => void)} onClose
      * @returns {*}
-     *
-     * @memberOf MixinService
+     * @memberof MixinService
      */
-    calendarOpts(onSelect: ((date: string) => void)): any {
-       return {
-            altFormat: "dd/mm/yy",
-            dateFormat: "dd/mm/yy",
-            yearRange: "1900:+nn",
+    calendarOpts(onClose: ((date: string) => void)): any {
+        return {
+            altFormat: 'dd/mm/yy',
+            dateFormat: 'dd/mm/yy',
+            yearRange: '1900:+1',
             changeYear: true,
             changeMonth: true,
-            dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-            dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-            monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-            monthNamesShort: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-            onSelect: onSelect
+            dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            onClose: onClose,
         };
+    }
+    /**
+     * Show jquery ui date picker
+     *
+     * @param {string} elId
+     * @memberof MixinService
+     */
+    showDatepicker(elId: string): void {
+        $(`#${elId}`).datepicker('show');
+    }
+
+    /**
+     * Initilize datepicker
+     *
+     * @param {string} elId
+     * @param {string} prop
+     * @param {*} model
+     * @memberof MixinService
+     */
+    initDatepicker(elId: string, model: any): any {
+        $(`#${elId}`)
+            .datepicker(
+                this.calendarOpts((date: string) => {
+                    model[elId] = date;
+                })
+            ).keyup((value: string) => {
+                if (!value) {
+                    model[elId] = '';
+                }
+            });
+        this.reverseDpYearCombo();
+        return model[elId];
+    }
+
+    /**
+     * Reverse Datepicker year combo order
+     *
+     * @memberof MixinService
+     */
+    reverseDpYearCombo(): void {
+        $(document.body).delegate('select.ui-datepicker-year', 'mousedown', function () {
+            (function (sel) {
+                let el = $(sel);
+                let ops = $(el).children().get();
+                if (ops.length > 0 && $(ops).first().val() < $(ops).last().val()) {
+                    $(el).empty();
+                    $(el).html(<any>ops.reverse());
+                }
+            })(this);
+        });
     }
 
     /**
@@ -65,20 +132,48 @@ export class MixinService {
      * @memberOf MixinService
      */
     clone(obj: any): any {
-        let cloneObj = Object.assign({}, obj);
-        for (let attribut in obj) {
-            if (obj[attribut] instanceof Array) {
-                cloneObj[attribut] = new Array();
-                for (let item of obj[attribut]) {
-                    cloneObj[attribut].push(this.clone(item));
-                }
-            } else if (typeof obj[attribut] === "object") {
-                cloneObj[attribut] = this.clone(cloneObj[attribut]);
-            } else {
-                cloneObj[attribut] = obj[attribut];
+        return JSON.parse(JSON.stringify(obj));
+    }
+
+    /**
+     * Find object by label
+     *
+     * @param {*} obj
+     * @param {string} label
+     * @returns {*}
+     * @memberof MixinService
+     */
+    findObjectByLabel(obj: any, label: string): any {
+        if (obj[label] === label) { return obj; }
+        for (let i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                let foundLabel = this.findObjectByLabel(obj[i], label);
+                if (foundLabel) { return foundLabel; }
             }
         }
-        return cloneObj;
+        return null;
+    };
+
+    /**
+     * Get current timestamp
+     *
+     * @param {number} [addDays]
+     * @returns {string}
+     *
+     * @memberOf MixinService
+     */
+    getCurrentDate(addDays?: number): Date {
+        let currentDate = new Date();
+        if (addDays !== null && addDays !== undefined) {
+            // this computation is a way to get the time without the time since midnight
+            let time: number = currentDate.getTime()
+                - currentDate.getHours() * 3600 * 1000
+                - currentDate.getMinutes() * 60 * 1000
+                - currentDate.getSeconds() * 1000
+                - currentDate.getMilliseconds();
+            currentDate = new Date(time + (addDays * (24 * 3600 * 1000)));
+        }
+        return currentDate;
     }
 
     /**
@@ -93,28 +188,106 @@ export class MixinService {
     }
 
     /**
-     * Date to string
+     * Get today date
      *
      * @param {number} [addDays]
-     * @returns
-     *
-     * @memberOf MixinService
+     * @returns {string}
+     * @memberof MixinService
      */
-    dateToString(date: Date) {
+    getTodayDate(addDays?: number): string {
+        let currentDate = this.getCurrentDate(addDays),
+            dd = currentDate.getDate().toString(),
+            mm = (currentDate.getMonth() + 1).toString(), // January is 0!
+            yyyy = currentDate.getFullYear().toString(),
+            today;
+
+        if (Number.parseInt(dd) < 10) {
+            dd = '0' + dd;
+        }
+
+        if (Number.parseInt(mm) < 10) {
+            mm = '0' + mm;
+        }
+
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    /**
+     * Date to string
+     *
+     * @param {Date} date
+     * @returns {string}
+     * @memberof MixinService
+     */
+    dateToString(date: Date): string {
         let dd = date.getDate().toString(),
             mm = (date.getMonth() + 1).toString(), // January is 0!
             yyyy = date.getFullYear().toString(),
             today;
 
         if (Number.parseInt(dd) < 10) {
-            dd = "0" + dd;
+            dd = '0' + dd;
         }
 
         if (Number.parseInt(mm) < 10) {
-            mm = "0" + mm;
+            mm = '0' + mm;
         }
 
-        return dd + "/" + mm + "/" + yyyy;
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    /**
+     * Get date comparer for sorting
+     *
+     * @param {string} dateOne
+     * @param {string} dateTwo
+     * @returns {number}
+     *
+     * @memberOf MixinService
+     */
+    getDateComparer(dateOne: string, dateTwo: string): number {
+        let a = (dateOne === null ? '' : dateOne);
+        let b = (dateTwo === null ? '' : dateTwo);
+        dateOne = a.split('/').reverse().join('');
+        dateTwo = b.split('/').reverse().join('');
+        return (dateOne > dateTwo ? 1 : dateOne < dateTwo ? -1 : 0);
+    }
+
+    /**
+     * Verify if the date is valid
+     *
+     * @param {string} date
+     * @returns
+     * @memberof MixinService
+     */
+    isValidDate(date: string) {
+        const DATE_REGEXP = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+        return DATE_REGEXP.test(date);
+    }
+
+    /**
+     * Remove special chars from given string
+     *
+     * @param {string} str
+     * @returns {string}
+     *
+     * @memberOf MixinService
+     */
+    removeSpecials(str: string): string {
+        return str.replace(/[&\/\\#,+()$~%.'':*?<>{}]/g, '');
+    }
+
+    /**
+     * Custom Timer
+     *
+     * @param {number} [duration=3000]
+     * @returns {Promise<any>}
+     * @memberof MixinService
+     */
+    startTimer(duration = 3000): Promise<any> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(), duration);
+        });
     }
 
     /**
@@ -126,9 +299,9 @@ export class MixinService {
      */
     isIE(): boolean {
         let ua = window.navigator.userAgent;
-        let msie = ua.indexOf("MSIE ");
-        let trident = ua.indexOf("Trident/");
-        let edge = ua.indexOf("Edge/");
+        let msie = ua.indexOf('MSIE ');
+        let trident = ua.indexOf('Trident/');
+        let edge = ua.indexOf('Edge/');
 
         if (msie > 0 || trident > 0 || edge > 0) {
             return true;
@@ -139,102 +312,39 @@ export class MixinService {
     }
 
     /**
-     *  convert Json to CSV data in Angular2
+     * Get percentage
      *
-     * @param {any} objArray
-     * @param {Array<string>} [humanReadableHeader]
-     * @returns
-     *
-     * @memberOf MixinService
+     * @param {number} num
+     * @param {number} total
+     * @returns {number}
+     * @memberof MixinService
      */
-    convertToCSV(objArray: any, humanReadableHeader?: any) {
-        let array = typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
-        let str = "";
-        let row = "";
-
-        for (let headerCode in objArray[0]) {
-            // Now convert each value to string and comma-separated
-            let headerLabel = headerCode;
-            if (humanReadableHeader && humanReadableHeader[headerCode]) {
-                headerLabel = humanReadableHeader[headerCode];
-            }
-            row += headerLabel + ";";
-        }
-        row = row.slice(0, -1);
-        // Append Label row with line break
-        str += row + "\r\n";
-
-        for (let i = 0; i < array.length; i++) {
-            let line = "";
-            for (let index in array[i]) {
-                if (line !== "") line += ";";
-
-                line += array[i][index];
-            }
-            str += line + "\r\n";
-        }
-        return str;
+    per(num: number, total: number, precision?: number): number {
+        return (total && total > 0) ? (this.round((num * 100 / total), precision || 0)) : 0;
     }
 
     /**
-     * Clear validation (delete errors fields)
+     * Add round with precision
      *
-     * @param {*} model
-     *
-     * @memberOf ExceptionService
+     * @param {number} value
+     * @param {number} precision
+     * @returns {number}
+     * @memberof MixinService
      */
-    clearValidation(model: any) {
-        for (let prop in model) {
-            if (model.hasOwnProperty(prop)) {
-                if (prop.indexOf("_") >= 0) {
-                    model[prop] = "";
-                }
-            }
-        }
+    round(value: number, precision: number): number {
+        const multiplier = Math.pow(10, precision || 0);
+        return Math.round(value * multiplier) / multiplier;
     }
 
     /**
-     * Clear notifications
+     * Clear local storage data
      *
-     * @param {*} model
-     * @param {Array<string>} notifFields
-     *
-     * @memberOf MixinService
+     * @memberof MixinService
      */
-    clearNotification(model: any, notifFields: Array<string>) {
-        for (let prop in notifFields) {
-            if (model.hasOwnProperty(notifFields[prop])) {
-                model[notifFields[prop]] = "";
-            }
-        }
-    }
-
-    /**
-     * Selected Class fo sorting
-     *
-     * @param {string} columnName
-     * @param {*} sorting
-     * @returns {*}
-     *
-     * @memberOf MixinService
-     */
-    selectedClass(columnName: string, sorting: any): any {
-        if (columnName !== "") {
-            return columnName === sorting.column ? "sort-" + sorting.descending : false;
-        }
-        return "no-sort-th";
-    }
-
-    /**
-     * Convert Sorting
-     *
-     * @param {*} sorting
-     * @returns {string}
-     *
-     * @memberOf MixinService
-     */
-    convertSorting(sorting: any): any {
-        return sorting.descending ? ["-" + sorting.column] : [sorting.column];
+    clearLocalStorageData(): void {
+        localStorage.removeItem(this.constants.APP_USER);
+        localStorage.removeItem(this.constants.ACCESS_TOKEN);
+        localStorage.removeItem(this.constants.ACCESS_TOKEN_DURATION);
     }
 }
 

@@ -55,5 +55,17 @@
                 }
             ]
         }
+    },
+    "pages": {
+        "login": {
+            "title": "ANGULAR CLI STARTER",
+            "subTitle": "Authentification",
+            "loginPLH": "Identifiant",
+            "emailPLH": "Email",
+            "passwordPLH": "Mot de passe",
+            "buttons": {
+                "connexion": "CONNEXION"
+            }
+        }
     }
 }

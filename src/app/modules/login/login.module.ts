@@ -4,13 +4,13 @@ import { SharedModule } from './../../modules/shared/shared.module';
 // Components
 import { LoginComponent } from './components/login.component';
 
-// Routing
-import { routing } from "./login.routing";
+// Routing Module
+import { LoginRoutingModule } from './login-routing.module';
 
 @NgModule({
     imports: [
         SharedModule,
-        routing
+        LoginRoutingModule
     ],
     declarations: [
         LoginComponent

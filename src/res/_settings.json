@@ -1,4 +1,4 @@
 ﻿{
-    "baseUrl": "http://proximy.viveris.fr/AGateRestApi",
+    "apiUrl": "https://aspnetcoreapistarter.azurewebsites.net",
     "version": "1.0.0"
 }

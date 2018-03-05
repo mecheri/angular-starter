@@ -1,61 +1,93 @@
-﻿"use strict";
+﻿import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+// RxJS
+import 'rxjs/add/operator/finally';
 
-import { Logger } from "../../core/services/logger.service";
-import { AuthService } from "../../core/services/auth.service";
+// Services
+import { Spinner } from './../../core/services/spinner.service';
+import { AuthService } from './../../core/services/auth.service';
+import { ResourcesService } from './../../core/services/resources.service';
 
+// Models
+import { Auth } from './../../core/models/auth';
+
+/**
+ * Login Componenet
+ *
+ * @export
+ * @class LoginComponent
+ * @implements {OnInit}
+ */
 @Component({
-    templateUrl: "./login.component.html",
-    providers: []
+    templateUrl: './login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     // props
-    username: string;
-    password: string;
+    rsc: any;
+    model: Auth;
     message: string;
-    isRequesting: boolean;
 
     /**
      * Creates an instance of LoginComponent.
      * @param {Router} router
-     * @param {ActivatedRoute} route
-     * @param {Logger} logger
+     * @param {Spinner} spinner
+     * @param {ResourcesService} rscService
      * @param {AuthService} authService
      * @memberof LoginComponent
      */
-    constructor(private router: Router,
-        private route: ActivatedRoute,
-        private logger: Logger,
-        private authService: AuthService) { }
+    constructor(
+        private router: Router,
+        private spinner: Spinner,
+        private rscService: ResourcesService,
+        private authService: AuthService
+    ) {
+        this.model = new Auth();
+    }
 
     /**
-     * Login to application.
+     * Component Init
+     *
+     *
+     * @memberOf LoginComponent
+     */
+    ngOnInit() {
+        this.loadResources();
+    }
+
+    /**
+     * Load resources
+     *
+     * @memberof LoginComponent
+     */
+    loadResources() {
+        this.rsc = this.rscService.get().pages.login;
+    }
+
+    /**
+     * Login to the app.
      *
      *
      * @memberOf LoginComponent
      */
     login() {
-        this.logger.log("logged in");
-        localStorage.setItem("access_token", "qsdqsddsdfdsf");
-        this.router.navigate([this.authService.redirectUrl]);
+        this.spinner.show();
+        this.authService.check(this.model)
+            .finally(() => this.spinner.hide())
+            .subscribe(
+                () => this.router.navigate(['/home']),
+                (error) => this.message = error
+            );
     }
 
     /**
-     * Event handle pour la touche entrée du clavier
-     * @param {Number} keyCode
+     * Event handle on enter keypress event
+     *
+     * @param {number} keyCode
+     *
+     * @memberOf LoginComponent
      */
     eventHandler(keyCode: number) {
-        if (keyCode === 13) {
-            this.login();
-        }
-    }
-
-    /**
-     * Arrêt du spinner
-     */
-    private stopRefreshing() {
-        this.isRequesting = false;
+        if (keyCode === 13) { this.login(); }
     }
 }

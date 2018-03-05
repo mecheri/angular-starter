@@ -1,31 +1,41 @@
-﻿import { Component, OnDestroy, OnInit } from '@angular/core';
+﻿import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Logger } from './../../../core/services/logger.service';
-import { SpinnerState, Spinner } from './../../services/spinner.service';
+import { SpinnerState, Spinner } from './../../../core/services/spinner.service';
 
 @Component({
   selector: 'spinner',
   templateUrl: './spinner.component.html',
 })
-export class SpinnerComponent implements OnDestroy, OnInit {
-  visible = false;
+export class SpinnerComponent implements OnInit, OnDestroy {
+  private visible: boolean;
 
   private spinnerStateChanged: Subscription;
 
+  /**
+   * Creates an instance of SpinnerComponent.
+   * @param {Spinner} spinner
+   * @memberof SpinnerComponent
+   */
   constructor(
-    private logger: Logger,
     private spinner: Spinner
   ) { }
 
+  /**
+   * Component init
+   *
+   * @memberof SpinnerComponent
+   */
   ngOnInit() {
     this.spinnerStateChanged = this.spinner.spinnerState
-      .subscribe((state: SpinnerState) => {
-        this.visible = state.show;
-        this.logger.log(`visible=${this.visible}`);
-      });
+      .subscribe((state: SpinnerState) => this.visible = state.show);
   }
 
+  /**
+   * Component destroy
+   *
+   * @memberof SpinnerComponent
+   */
   ngOnDestroy() {
     this.spinnerStateChanged.unsubscribe();
   }

@@ -1,9 +1,10 @@
-import { Component, Injectable } from "@angular/core";
+import { Component, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable } from "rxjs/Rx";
-import "rxjs/add/operator/map";
 
-import { HttpResponseService } from "./http-response.service";
+// Services
+import { Logger } from './../services/logger.service';
+import { Constants } from './../services/constants.service';
+import { HttpResponseService } from './http-response.service';
 
 /**
  * Service to handle global application resources
@@ -13,42 +14,42 @@ import { HttpResponseService } from "./http-response.service";
  */
 @Injectable()
 export class ResourcesService {
-    rsc: any;
+    public rsc: any;
 
     /**
      * Creates an instance of ResourcesService.
      * @param {HttpClient} http
+     * @param {Logger} logger
      * @param {HttpResponseService} httpRespService
      * @memberof ResourcesService
      */
-    constructor(private http: HttpClient,
+    constructor(
+        private http: HttpClient,
+        private logger: Logger,
+        private constants: Constants,
         private httpRespService: HttpResponseService) {
     };
 
     /**
      * Load application resources
      *
-     * @param {() => any} [callback]
      * @returns
-     *
-     * @memberOf ResourcesService
+     * @memberof ResourcesService
      */
     load() {
         let headers = new HttpHeaders();
-        headers.append("Cache-Control", "no-cache");
-        headers.append("Pragma", "no-cache");
-
+        headers.append('Cache-Control', 'no-cache');
+        headers.append('Pragma', 'no-cache');
         return new Promise(resolve => {
             this.http
-                .get("res/_resources.json", { headers: headers })
-                .map((res: HttpResponse<any>) => res)
+                .get(`res/_resources.json`, { headers: headers })
                 .subscribe(
                     (rsc) => {
                         this.rsc = rsc;
                         resolve(true);
                     },
-                    (error) => console.log(error),
-                    () => console.log("Resources loaded")
+                    (error) => this.httpRespService.handleError,
+                    () => this.logger.trace('Resources loaded')
                 );
         });
     }
@@ -65,27 +66,13 @@ export class ResourcesService {
     }
 
     /**
-     * Store resources
-     *
-     * @param {*} rsc
-     *
-     * @memberOf ResourcesService
-     */
-    store(rsc: any) {
-        sessionStorage.setItem("app_resources", null);
-        if (rsc) {
-            sessionStorage.setItem("app_resources", rsc);
-        }
-    }
-
-    /**
-     * Lecture des données de l'utilisateur courant
+     * Read user context data
      *
      * @returns
      *
      * @memberOf ResourcesService
      */
-    getUser() {
-        return JSON.parse(sessionStorage.getItem("app_user"));
+    getUserContext() {
+        return JSON.parse(localStorage.getItem(this.constants.APP_USER));
     }
 }

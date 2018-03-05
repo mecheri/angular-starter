@@ -1,30 +1,42 @@
-import { Component, Injectable } from "@angular/core";
+import { Component, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable } from "rxjs/Rx";
-import "rxjs/add/operator/map";
 
-import { Logger } from "./logger.service";
-import { SettingsService } from "./settings.service";
-import { HttpResponseService } from "./http-response.service";
+// RxJS
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+// Services
+import { Logger } from './logger.service';
+import { Constants } from './constants.service';
+import { SettingsService } from './settings.service';
+import { HttpResponseService } from './http-response.service';
+
+// Models
+import { Auth } from './../models/auth';
 
 @Injectable()
 export class AuthService {
 
     // store the URL so we can redirect after logging in
-    redirectUrl: string = "/home";
+    public redirectUrl: string = '/home';
 
     /**
      * Creates an instance of AuthService.
      * @param {HttpClient} http
      * @param {Logger} logger
+     * @param {Constants} constants
      * @param {SettingsService} settingsService
      * @param {HttpResponseService} httpRespService
      * @memberof AuthService
      */
-    constructor(private http: HttpClient,
+    constructor(
+        private http: HttpClient,
         private logger: Logger,
+        private constants: Constants,
         private settingsService: SettingsService,
-        private httpRespService: HttpResponseService) { };
+        private httpRespService: HttpResponseService
+    ) { };
 
     /**
      * Authentification sur le serveur
@@ -36,19 +48,20 @@ export class AuthService {
      *
      * @memberOf AuthService
      */
-    check(login: string, password: string): Observable<any> {
-        let body = "username=" + login + "&password=" + password;
-        let headers = new HttpHeaders();
-        headers.append("Content-Type", "application/x-www-form-urlencoded");
-
+    check(auth: Auth): Observable<any> {
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('username', auth.username);
+        urlSearchParams.append('email', auth.email);
+        urlSearchParams.append('password', auth.password);
+        let body = urlSearchParams.toString();
+        let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
-            .post<HttpResponse<any>>(`${this.settingsService.get().apiUrl}/Authentification`,
-            body,
-            { headers: headers })
-            .map(res => {
-                this.storeUser(res['data']);
-                this.storeToken(res['data'].token_jwt);
-                this.logger.log("Auth is done");
+            .post<HttpResponse<any>>(`${this.settingsService.get().apiUrl}/api/Auth/login`,
+                auth,
+                { headers: headers })
+            .map((res: any) => {
+                this.storeToken(res.token);
+                this.logger.trace('Auth is done');
             })
             .catch(this.httpRespService.handleError);
     }
@@ -62,8 +75,18 @@ export class AuthService {
      */
     storeToken(token: any) {
         if (token) {
-            sessionStorage.setItem("access_token", token);
+            localStorage.setItem(this.constants.ACCESS_TOKEN, token);
         }
+    }
+
+    /**
+     * Récupération du token d'authentification
+     *
+     * @returns
+     * @memberof AuthService
+     */
+    getToken() {
+        return localStorage.getItem(this.constants.ACCESS_TOKEN);
     }
 
     /**
@@ -73,12 +96,8 @@ export class AuthService {
      *
      * @memberOf AuthService
      */
-    storeUser(data: any) {
-        if (data) {
-            delete data.groupes;
-            delete data.token_jwt;
-            sessionStorage.setItem("app_user", JSON.stringify(data));
-        }
+    storeUserContext(data: any) {
+        if (data) { localStorage.setItem(this.constants.APP_USER, JSON.stringify(data)); }
     }
 
     /**
@@ -89,7 +108,6 @@ export class AuthService {
      * @memberOf AuthService
      */
     isLoggedIn() {
-        let token = localStorage.getItem("access_token");
-        return token !== null ? true : false;
+        return localStorage.getItem(this.constants.ACCESS_TOKEN) !== null;
     }
 }
