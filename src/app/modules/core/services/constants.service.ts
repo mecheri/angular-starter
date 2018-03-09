@@ -15,4 +15,7 @@ export class Constants {
     public readonly APP_USER = 'app_user';
     public readonly ACCESS_TOKEN = 'access_token';
     public readonly ACCESS_TOKEN_DURATION = 'access_token_duration';
+
+    // Client form validation messages
+    public readonly MANDATORY_FIELD_MSG = 'Ce champ est obligatoire.';
 }

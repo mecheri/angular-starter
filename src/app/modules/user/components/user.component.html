@@ -1,0 +1,31 @@
+﻿<breadcrumb [data]="bcItems"></breadcrumb>
+<h2>{{ rsc.title }}</h2>
+
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Filtre général">
+</div>
+<p-dataTable class="table-hover" [value]="users" [rows]="10" [paginator]="true" [editable]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [responsive]="true" [globalFilter]="gb">
+    <p-column field="id" [header]="rsc.table.id" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column field="username" [header]="rsc.table.username" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column field="email" [header]="rsc.table.email" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column field="firstname" [header]="rsc.table.firstname" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column field="lastname" [header]="rsc.table.lastname" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column [style]="{'width':'90px'}">
+        <ng-template let-usr="rowData" pTemplate="body">
+            <button type="button" pButton (click)="view(usr)" icon="fa-search"></button>
+            <button type="button" pButton (click)="edit(usr)" icon="fa-pencil"></button>
+        </ng-template>
+    </p-column>
+    <p-footer>
+        <div class="ui-helper-clearfix">
+            <button type="button" class="pull-left" pButton icon="fa-plus" (click)="add()"></button>
+        </div>
+    </p-footer>
+</p-dataTable>
+<br>
+<!-- notify -->
+<simple-notifications [options]="mixinService.notifOpts"></simple-notifications>
+
+<!-- spinner -->
+<spinner></spinner>

@@ -6,33 +6,37 @@ import { Routes, RouterModule } from '@angular/router';
 import { IndexComponent } from './components/index.component';
 
 const indexRoutes: Routes = [
-    {
+  {
+    path: '',
+    component: IndexComponent,
+    children: [
+      {
         path: '',
-        component: IndexComponent,
-        children: [
-          {
-            path: '',
-            redirectTo: '/home',
-            pathMatch: 'full'
-          },
-          {
-            path: 'home',
-            loadChildren: './../../modules/home/home.module#HomeModule',
-          },
-          {
-            path: 'ui',
-            loadChildren: './../../modules/ui/ui.module#UiModule',
-          }
-        ]
-    }
+        redirectTo: '/home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
+        loadChildren: './../../modules/home/home.module#HomeModule',
+      },
+      {
+        path: 'ui',
+        loadChildren: './../../modules/ui/ui.module#UiModule',
+      },
+      {
+        path: 'user',
+        loadChildren: './../../modules/user/user.module#UserModule',
+      }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [
-      RouterModule.forChild(indexRoutes)
+    RouterModule.forChild(indexRoutes)
   ],
   exports: [
-      RouterModule
+    RouterModule
   ]
 })
 export class IndexRoutingModule { }

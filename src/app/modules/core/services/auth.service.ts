@@ -14,6 +14,7 @@ import { HttpResponseService } from './http-response.service';
 
 // Models
 import { Auth } from './../models/auth';
+import { User } from './../models/user';
 
 @Injectable()
 export class AuthService {
@@ -51,7 +52,6 @@ export class AuthService {
     check(auth: Auth): Observable<any> {
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('username', auth.username);
-        urlSearchParams.append('email', auth.email);
         urlSearchParams.append('password', auth.password);
         let body = urlSearchParams.toString();
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
@@ -63,6 +63,22 @@ export class AuthService {
                 this.storeToken(res.token);
                 this.logger.trace('Auth is done');
             })
+            .catch(this.httpRespService.handleError);
+    }
+
+    /**
+     * Register user
+     * 
+     * @param {User} user 
+     * @returns {Observable<any>} 
+     * @memberof AuthService
+     */
+    register(user: User): Observable<any> {
+        const body = JSON.stringify(user);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
+        return this.http
+            .post(`${this.settingsService.get().apiUrl}/api/User`, user,
+                { headers: headers })
             .catch(this.httpRespService.handleError);
     }
 

@@ -1,65 +1,58 @@
-﻿"use strict";
-
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+﻿import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AuthService } from "../../../core/services/auth.service";
-import { ResourcesService } from "../../../core/services/resources.service";
+// Services
+import { Constants } from './../../../core/services/constants.service';
 import { MixinService } from "../../../core/services/mixin.service";
+import { ResourcesService } from "../../../core/services/resources.service";
+import { AuthService } from "../../../core/services/auth.service";
 
 /**
  * Navbar Component
- *
+ * 
  * @export
  * @class NavbarComponent
  * @implements {OnInit}
  */
 @Component({
     selector: "navbar",
-    templateUrl: "./navbar.component.html",
-    providers: []
+    templateUrl: "./navbar.component.html"
 })
 export class NavbarComponent implements OnInit {
-    // props
     rsc: any;
     items: any[];
-    isCollapsed: boolean = true;
-
-    public toggled(open: boolean): void {
-        console.log("Dropdown is now: ", open);
-    }
 
     /**
      * Creates an instance of NavbarComponent.
-     *
-     * @param {Router} router
-     * @param {SettingsService} settingsSvc
-     * @param {ResourceService} resourceService
-     * @param {MixinService} mixinService
-     *
-     * @memberOf NavbarComponent
+     * @param {Router} router 
+     * @param {Constants} constants 
+     * @param {MixinService} mixinService 
+     * @param {ResourcesService} resourcesService 
+     * @param {AuthService} authService 
+     * @memberof NavbarComponent
      */
-    constructor(private router: Router,
-        private authService: AuthService,
+    constructor(
+        private router: Router,
+        private constants: Constants,
+        private mixinService: MixinService,
         private resourcesService: ResourcesService,
-        private mixinService: MixinService) {
+        private authService: AuthService,
+    ) {
         this.initItems();
     }
 
     /**
      * Initialisation du composant
-     *
-     *
-     * @memberOf NavbarComponent
+     * 
+     * @memberof NavbarComponent
      */
     ngOnInit() {
     }
 
     /**
      * Initialise la liste des items du menu
-     *
-     *
-     * @memberOf NavbarComponent
+     * 
+     * @memberof NavbarComponent
      */
     initItems() {
         this.rsc = this.resourcesService.get().menu;
@@ -71,41 +64,34 @@ export class NavbarComponent implements OnInit {
                 url: this.rsc.home.url,
             },
             {
-                name: this.rsc.ui.name,
-                id: this.rsc.ui.id,
-                class: this.rsc.ui.class,
-                url: this.rsc.ui.url,
+                name: this.rsc.user.name,
+                id: this.rsc.user.id,
+                class: this.rsc.user.class,
+                url: this.rsc.user.url,
             },
-            {
-                name: this.rsc.about.name,
-                id: this.rsc.about.id,
-                class: this.rsc.about.class,
-                url: this.rsc.about.url,
-            },
-            {
-                name: this.rsc.contact.name,
-                id: this.rsc.contact.id,
-                class: this.rsc.contact.class,
-                url: this.rsc.contact.url,
-            },
-            {
-                name: this.rsc.admin.name,
-                id: this.rsc.admin.id,
-                class: this.rsc.admin.class,
-                subItems: this.rsc.admin.subItems
-            }
+            // {
+            //     name: this.rsc.ui.name,
+            //     id: this.rsc.ui.id,
+            //     class: this.rsc.ui.class,
+            //     url: this.rsc.ui.url,
+            // },
+            // {
+            //     name: this.rsc.admin.name,
+            //     id: this.rsc.admin.id,
+            //     class: this.rsc.admin.class,
+            //     subItems: this.rsc.admin.subItems
+            // }
         ];
     }
 
     /**
      * Logout app
-     *
-     *
-     * @memberOf NavbarComponent
+     * 
+     * @memberof NavbarComponent
      */
     logout() {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("app_user");
+        localStorage.removeItem(this.constants.ACCESS_TOKEN);
+        localStorage.removeItem(this.constants.APP_USER);
         this.router.navigate(["/login"]);
     }
 }

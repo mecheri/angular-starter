@@ -35,6 +35,6 @@ export class GlobalErrorHandler implements ErrorHandler {
         const logger = this.injector.get(Logger);
         const router = this.injector.get(Router);
         logger.error(error);
-        this.zone.run(() => router.navigate(['error']));
+        // this.zone.run(() => router.navigate(['error']));
     }
 }

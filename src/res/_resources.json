@@ -5,11 +5,18 @@
     },
     "menu": {
         "home": {
-            "name": "Home",
+            "name": "Accueil",
             "id": "home",
             "class": "",
             "icon": "fa fa-home",
             "url": "/home"
+        },
+        "user": {
+            "name": "Utilisateurs",
+            "id": "user",
+            "class": "",
+            "icon": "",
+            "url": "/user"
         },
         "ui": {
             "name": "UI",
@@ -17,20 +24,6 @@
             "class": "",
             "icon": "fa fa-home",
             "url": "/ui"
-        },
-        "about": {
-            "name": "About",
-            "id": "about",
-            "class": "",
-            "icon": "fa fa-home",
-            "url": "/home"
-        },
-        "contact": {
-            "name": "Contact",
-            "id": "contact",
-            "class": "",
-            "icon": "fa fa-home",
-            "url": "/home"
         },
         "admin": {
             "name": "Administration",
@@ -61,10 +54,52 @@
             "title": "ANGULAR CLI STARTER",
             "subTitle": "Authentification",
             "loginPLH": "Identifiant",
-            "emailPLH": "Email",
             "passwordPLH": "Mot de passe",
             "buttons": {
-                "connexion": "CONNEXION"
+                "connect": "CONNEXION"
+            }
+        },
+        "register": {
+            "title": "ANGULAR CLI STARTER",
+            "subTitle": "Inscription",
+            "login": "Identifiant",
+            "password": "Mot de passe",
+            "email": "Adresse mail",
+            "firstname": "Prénom",
+            "lastname": "Nom",
+            "table": {
+                "id": "ID",
+                "username": "Identifiant",
+                "email": "Email",
+                "firstname": "Prénom",
+                "lastname": "Nom"
+            },
+            "buttons": {
+                "save": "ENREGISTRER",
+                "cancel": "ANNULER"
+            }
+        },
+        "user": {
+            "title": "Liste des utilisateurs",
+            "titleView": "Detail d'un utilisateur",
+            "titleNew": "Création d'un utilisateur",
+            "titleEdit": "Modification d'un utilisateur",
+            "login": "Identifiant",
+            "password": "Mot de passe",
+            "email": "Adresse mail",
+            "firstname": "Prénom",
+            "lastname": "Nom",
+            "table": {
+                "id": "ID",
+                "username": "Identifiant",
+                "email": "Email",
+                "firstname": "Prénom",
+                "lastname": "Nom"
+            },
+            "buttons": {
+                "save": "ENREGISTRER",
+                "cancel": "ANNULER",
+                "edit": "MODIFIER"
             }
         }
     }

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
-import { CommonModule }  from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Vendor modules
 import { BreadcrumbModule, CalendarModule, DataTableModule, ToolbarModule } from 'primeng/primeng';
@@ -21,6 +21,7 @@ import { Spinner } from './services/spinner.service';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         BreadcrumbModule,
         CalendarModule,
         DataTableModule,
@@ -38,6 +39,7 @@ import { Spinner } from './services/spinner.service';
     exports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         BreadcrumbModule,
         CalendarModule,
         ToolbarModule,

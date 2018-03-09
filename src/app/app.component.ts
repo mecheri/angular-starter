@@ -26,6 +26,6 @@ export class AppComponent {
     constructor(
         private logger: Logger
     ) {
-        this.logger.trace(`Welcome to digitop, the current environment is: ${environment.envName}`);
+        this.logger.trace(`Welcome to ANGULAR CLI STARTER, the current environment is: ${environment.envName}`);
     }
 }

@@ -18,6 +18,10 @@ const appRoutes: Routes = [
     loadChildren: './modules/login/login.module#LoginModule',
   },
   {
+    path: 'register',
+    loadChildren: './modules/register/register.module#RegisterModule',
+  },
+  {
     path: '',
     loadChildren: './modules/index/index.module#IndexModule',
     canActivate: [AuthGuardService]
