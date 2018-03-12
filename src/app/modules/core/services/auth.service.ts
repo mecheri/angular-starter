@@ -61,6 +61,7 @@ export class AuthService {
                 { headers: headers })
             .map((res: any) => {
                 this.storeToken(res.token);
+                this.storeUserContext({ username: res.username });
                 this.logger.trace('Auth is done');
             })
             .catch(this.httpRespService.handleError);

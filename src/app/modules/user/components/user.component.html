@@ -5,16 +5,17 @@
     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
     <input #gb type="text" pInputText size="50" placeholder="Filtre général">
 </div>
-<p-dataTable class="table-hover" [value]="users" [rows]="10" [paginator]="true" [editable]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [responsive]="true" [globalFilter]="gb">
+<p-dataTable class="table-hover" [value]="users" [rows]="4" [paginator]="true" [editable]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [responsive]="true" [globalFilter]="gb">
     <p-column field="id" [header]="rsc.table.id" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
     <p-column field="username" [header]="rsc.table.username" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
     <p-column field="email" [header]="rsc.table.email" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
     <p-column field="firstname" [header]="rsc.table.firstname" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
     <p-column field="lastname" [header]="rsc.table.lastname" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
-    <p-column [style]="{'width':'90px'}">
+    <p-column [style]="{'width':'120px'}">
         <ng-template let-usr="rowData" pTemplate="body">
             <button type="button" pButton (click)="view(usr)" icon="fa-search"></button>
             <button type="button" pButton (click)="edit(usr)" icon="fa-pencil"></button>
+            <button type="button" pButton (click)="showDeleteModal(usr)" icon="fa-remove" [disabled]="usrCtx.username === usr.username"></button>
         </ng-template>
     </p-column>
     <p-footer>
@@ -24,6 +25,9 @@
     </p-footer>
 </p-dataTable>
 <br>
+
+<app-user-delete-modal *ngIf="displayDeleteModal" [data]="userToDelete" [display]="displayDeleteModal" (onDelete)="onDelete($event)" (onCancel)="onCancel($event)"></app-user-delete-modal>
+
 <!-- notify -->
 <simple-notifications [options]="mixinService.notifOpts"></simple-notifications>
 

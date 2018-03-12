@@ -47,9 +47,8 @@ export class LoginComponent implements OnInit {
 
     /**
      * Component Init
-     *
-     *
-     * @memberOf LoginComponent
+     * 
+     * @memberof LoginComponent
      */
     ngOnInit() {
         this.loadResources();
@@ -66,26 +65,33 @@ export class LoginComponent implements OnInit {
 
     /**
      * Login to the app.
-     *
-     *
-     * @memberOf LoginComponent
+     * 
+     * @memberof LoginComponent
      */
     login() {
         this.spinner.show();
         this.authService.check(this.model)
             .finally(() => this.spinner.hide())
             .subscribe(
-                () => this.router.navigate(['/home']),
+                () => this.router.navigate(['/user']),
                 (error) => this.message = error
             );
     }
 
     /**
+     * Go to register page.
+     * 
+     * @memberof LoginComponent
+     */
+    register() {
+        this.router.navigate(['register']);
+    }
+
+    /**
      * Event handle on enter keypress event
-     *
-     * @param {number} keyCode
-     *
-     * @memberOf LoginComponent
+     * 
+     * @param {number} keyCode 
+     * @memberof LoginComponent
      */
     eventHandler(keyCode: number) {
         if (keyCode === 13) { this.login(); }

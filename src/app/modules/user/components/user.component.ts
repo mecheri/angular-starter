@@ -29,8 +29,11 @@ import { User } from './../../core/models/user';
 })
 export class UserComponent implements OnInit {
     private rsc: any;
+    private usrCtx: any;
     private bcItems: any[];
     private users: User[];
+    private userToDelete: User;
+    private displayDeleteModal: boolean = false;
 
     /**
      * Creates an instance of UserComponent.
@@ -55,6 +58,25 @@ export class UserComponent implements OnInit {
     }
 
     /**
+     * Event on delete user
+     * 
+     * @memberof UserComponent
+     */
+    onDelete = (): void => {
+        this.displayDeleteModal = false;
+        this.loadUsers();
+    }
+
+    /**
+     * Event on delete user
+     * 
+     * @memberof UserComponent
+     */
+    onCancel = (): void => {
+        this.displayDeleteModal = false;
+    }
+
+    /**
      *  Component init
      * 
      * @memberof UserComponent
@@ -71,6 +93,7 @@ export class UserComponent implements OnInit {
      */
     loadResources() {
         this.rsc = this.rscService.get().pages.user;
+        this.usrCtx = this.rscService.getUserContext();
         this.bcItems = [
             { label: 'Accueil', routerLink: '/home' },
             { label: 'Utilisateurs', }
@@ -92,7 +115,7 @@ export class UserComponent implements OnInit {
     }
 
     /**
-     * add user
+     * Add user
      * 
      * @memberof UserComponent
      */
@@ -101,7 +124,7 @@ export class UserComponent implements OnInit {
     }
 
     /**
-     * view user
+     * View user
      * 
      * @param {User} user 
      * @memberof UserComponent
@@ -111,12 +134,23 @@ export class UserComponent implements OnInit {
     }
 
     /**
-     * edit user
+     * Edit user
      * 
      * @param {User} user 
      * @memberof UserComponent
      */
     edit(user: User) {
         this.router.navigate(['user', 'edit', user.id]);
+    }
+
+    /**
+     * Delete user
+     * 
+     * @param {User} user 
+     * @memberof UserComponent
+     */
+    showDeleteModal(user: User) {
+        this.userToDelete = user;
+        this.displayDeleteModal = true;
     }
 }

@@ -1,0 +1,41 @@
+<p-dialog [header]="rsc.titleDelete" [(visible)]="display" [modal]="true">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <label class="col-sm-5">Identifiant :</label>
+                <div class="col-sm-7">
+                    <span>{{ user.username }} </span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5">Email :</label>
+                <div class="col-sm-7">
+                    <span>{{ user.email }} </span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5">Prénom :</label>
+                <div class="col-sm-7">
+                    <span>{{ user.firstname }} </span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5">Nom :</label>
+                <div class="col-sm-7">
+                    <span>{{ user.lastname }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton (click)="delete()" [label]="rsc.buttons.delete"></button>
+        <button type="button" pButton (click)="cancel()" [label]="rsc.buttons.cancel"></button>
+    </p-footer>
+</p-dialog>
+
+<!-- notify -->
+<simple-notifications [options]="mixinService.notifOpts"></simple-notifications>
+
+<!-- spinner -->
+<spinner></spinner>

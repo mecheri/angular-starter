@@ -13,6 +13,7 @@ export class Constants {
 
     // Application local storage items
     public readonly APP_USER = 'app_user';
+    public readonly APP_USER_NAME = 'app_user_name';
     public readonly ACCESS_TOKEN = 'access_token';
     public readonly ACCESS_TOKEN_DURATION = 'access_token_duration';
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Vendor modules
-import { BreadcrumbModule, CalendarModule, DataTableModule, ToolbarModule } from 'primeng/primeng';
+import { BreadcrumbModule, CalendarModule, DataTableModule, ToolbarModule, DialogModule } from 'primeng/primeng';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap';
@@ -26,6 +26,7 @@ import { Spinner } from './services/spinner.service';
         CalendarModule,
         DataTableModule,
         ToolbarModule,
+        DialogModule,
         SimpleNotificationsModule,
         BsDropdownModule.forRoot(),
         CollapseModule.forRoot(),
@@ -43,6 +44,7 @@ import { Spinner } from './services/spinner.service';
         BreadcrumbModule,
         CalendarModule,
         ToolbarModule,
+        DialogModule,
         DataTableModule,
         SimpleNotificationsModule,
         BsDropdownModule,

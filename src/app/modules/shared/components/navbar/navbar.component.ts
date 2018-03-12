@@ -20,6 +20,7 @@ import { AuthService } from "../../../core/services/auth.service";
 })
 export class NavbarComponent implements OnInit {
     rsc: any;
+    usrCtx: any;
     items: any[];
 
     /**
@@ -47,6 +48,7 @@ export class NavbarComponent implements OnInit {
      * @memberof NavbarComponent
      */
     ngOnInit() {
+        this.usrCtx = this.resourcesService.getUserContext();
     }
 
     /**

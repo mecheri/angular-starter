@@ -1,4 +1,4 @@
 ﻿{
-    "apiUrl": "http://localhost:49462",
+    "apiUrl": "https://aspnetcoreapistarter.azurewebsites.net",
     "version": "1.0.0"
 }

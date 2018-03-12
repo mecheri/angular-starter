@@ -9,6 +9,7 @@ import { UserComponent } from './components/user.component';
 import { UserViewComponent } from './components/view/user-view.component';
 import { UserNewComponent } from './components/new/user-new.component';
 import { UserEditComponent } from './components/edit/user-edit.component';
+import { UserDeleteComponent } from './components/delete/user-delete.component';
 
 // Services
 import { UserService } from './services/user.service';
@@ -23,7 +24,8 @@ import { UserGuardService } from './services/user-guard.service';
         UserComponent,
         UserViewComponent,
         UserNewComponent,
-        UserEditComponent
+        UserEditComponent,
+        UserDeleteComponent
     ],
     providers: [
         UserService,

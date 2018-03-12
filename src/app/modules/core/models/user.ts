@@ -7,7 +7,7 @@ import { Auth } from './auth';
  * @class User
  */
 export class User extends Auth {
-    id: string;
+    id: number;
     email: string;
     firstname: string;
     lastname: string;

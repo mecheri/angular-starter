@@ -56,24 +56,18 @@
             "loginPLH": "Identifiant",
             "passwordPLH": "Mot de passe",
             "buttons": {
-                "connect": "CONNEXION"
+                "connect": "CONNEXION",
+                "register": "INSCRIPTION"
             }
         },
         "register": {
             "title": "ANGULAR CLI STARTER",
             "subTitle": "Inscription",
-            "login": "Identifiant",
-            "password": "Mot de passe",
-            "email": "Adresse mail",
-            "firstname": "Prénom",
-            "lastname": "Nom",
-            "table": {
-                "id": "ID",
-                "username": "Identifiant",
-                "email": "Email",
-                "firstname": "Prénom",
-                "lastname": "Nom"
-            },
+            "login": "Identifiant*",
+            "password": "Mot de passe*",
+            "email": "Email*",
+            "firstname": "Prénom*",
+            "lastname": "Nom*",
             "buttons": {
                 "save": "ENREGISTRER",
                 "cancel": "ANNULER"
@@ -84,13 +78,14 @@
             "titleView": "Detail d'un utilisateur",
             "titleNew": "Création d'un utilisateur",
             "titleEdit": "Modification d'un utilisateur",
-            "login": "Identifiant",
-            "password": "Mot de passe",
-            "email": "Adresse mail",
-            "firstname": "Prénom",
-            "lastname": "Nom",
+            "titleDelete": "Suppression d'un utilisateur",
+            "login": "Identifiant*",
+            "password": "Mot de passe*",
+            "email": "Email*",
+            "firstname": "Prénom*",
+            "lastname": "Nom*",
             "table": {
-                "id": "ID",
+                "id": "N°",
                 "username": "Identifiant",
                 "email": "Email",
                 "firstname": "Prénom",
@@ -99,7 +94,8 @@
             "buttons": {
                 "save": "ENREGISTRER",
                 "cancel": "ANNULER",
-                "edit": "MODIFIER"
+                "edit": "MODIFIER",
+                "delete": "SUPPRIMER"
             }
         }
     }
