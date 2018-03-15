@@ -19,4 +19,5 @@ export class Constants {
 
     // Client form validation messages
     public readonly MANDATORY_FIELD_MSG = 'Ce champ est obligatoire.';
+    public readonly INVALID_EMAIL_MSG = 'Email invalid.';
 }

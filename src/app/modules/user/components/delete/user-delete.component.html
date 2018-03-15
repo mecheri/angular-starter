@@ -29,8 +29,10 @@
     </div>
 
     <p-footer>
-        <button type="button" pButton (click)="delete()" [label]="rsc.buttons.delete"></button>
-        <button type="button" pButton (click)="cancel()" [label]="rsc.buttons.cancel"></button>
+        <button class="btn btn-default" (click)="cancel()">{{ rsc.buttons.cancel }}</button>
+        <button class="btn btn-primary" (click)="delete()">{{ rsc.buttons.delete }}</button>
+        <!-- <button type="button" pButton (click)="delete()" [label]="rsc.buttons.delete"></button>
+        <button type="button" pButton (click)="cancel()" [label]="rsc.buttons.cancel"></button> -->
     </p-footer>
 </p-dialog>
 

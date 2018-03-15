@@ -16,7 +16,7 @@ import { UiService } from '../services/ui.service';
 import { slideInDownAnimation } from '../../../animations';
 
 // Mocks
-import { CARS } from '../../../mocks/cars';
+import { CARS } from '../mocks/cars';
 
 /**
  * Composant Accueil

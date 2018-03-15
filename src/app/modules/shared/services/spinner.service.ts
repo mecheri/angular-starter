@@ -26,10 +26,12 @@ export class Spinner {
   constructor() { }
 
   show() {
+    console.log('Spinner fires');
     this.spinnerSubject.next(<SpinnerState>{ show: true });
   }
 
   hide() {
+    console.log('Spinner unfires');
     this.spinnerSubject.next(<SpinnerState>{ show: false });
   }
 }

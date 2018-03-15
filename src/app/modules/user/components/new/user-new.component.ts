@@ -103,7 +103,7 @@ export class UserNewComponent implements OnInit {
         this.creationForm = this.fb.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
         });

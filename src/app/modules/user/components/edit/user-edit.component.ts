@@ -70,6 +70,7 @@ export class UserEditComponent implements OnInit {
         private rscService: ResourcesService,
         private userService: UserService
     ) {
+        this.user = new User();
     }
 
     /**
@@ -117,7 +118,7 @@ export class UserEditComponent implements OnInit {
         this.editForm = this.fb.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
         });

@@ -33,6 +33,9 @@
                         <div *ngIf="email.errors.required">
                             <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>
                         </div>
+                        <div *ngIf="email.errors.email">
+                            <span class="help-block">{{ constants.INVALID_EMAIL_MSG }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,8 +64,8 @@
 
             <div class="row pull-right">
                 <div class="col-md-12">
-                    <button class="btn btn-default btn-cancel" (click)="cancel()">{{ rsc.buttons.cancel }}</button>
-                    <button type="submit" class="btn btn-default btn-validate" [disabled]="!editForm.valid">{{ rsc.buttons.save }}</button>
+                    <button class="btn btn-default" (click)="cancel()">{{ rsc.buttons.cancel }}</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid">{{ rsc.buttons.save }}</button>
                 </div>
             </div>
         </form>
