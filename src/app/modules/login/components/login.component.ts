@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
         this.authService.check(this.model)
             .finally(() => this.spinner.hide())
             .subscribe(
-                () => this.router.navigate(['/user']),
+                () => this.router.navigate(['home']),
                 (error) => this.message = error
             );
     }

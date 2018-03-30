@@ -20,10 +20,6 @@ const indexRoutes: Routes = [
         loadChildren: './../../modules/home/home.module#HomeModule',
       },
       {
-        path: 'ui',
-        loadChildren: './../../modules/ui/ui.module#UiModule',
-      },
-      {
         path: 'user',
         loadChildren: './../../modules/user/user.module#UserModule',
       }
