@@ -12,9 +12,6 @@ import { MixinService } from '../../core/services/mixin.service';
 import { NotificationsService } from 'angular2-notifications';
 import { UiService } from '../services/ui.service';
 
-// Animations
-import { slideInDownAnimation } from '../../../animations';
-
 // Mocks
 import { CARS } from '../mocks/cars';
 
@@ -26,13 +23,9 @@ import { CARS } from '../mocks/cars';
  * @implements {OnInit}
  */
 @Component({
-    templateUrl: './ui.component.html',
-    animations: [slideInDownAnimation]
+    templateUrl: './ui.component.html'
 })
 export class UiComponent implements OnInit, AfterViewInit {
-    @HostBinding('@routeAnimation') routeAnimation = true;
-    @HostBinding('style.display') display = 'block';
-    @HostBinding('style.position') position = 'absolute';
 
     cols: any[];
     cars: any[];
