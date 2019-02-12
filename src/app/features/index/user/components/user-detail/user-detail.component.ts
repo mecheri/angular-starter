@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from './../../models/user';
+import { NotifierService } from 'angular-notifier';
 import { UserService } from './../../services/user.service';
 import { ResourcesService } from '../../../../../core/services/resources.service';
-import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,20 +22,20 @@ export class UserDetailComponent implements OnInit {
   ];
 
   /**
-   * Creates an instance of UserDetailComponent.
+   *Creates an instance of UserDetailComponent.
    * @param {Router} router
    * @param {ActivatedRoute} route
+   * @param {NotifierService} notifier
    * @param {UserService} userService
    * @param {ResourcesService} rscService
-   * @param {NotificationsService} notifService
    * @memberof UserDetailComponent
    */
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private notifier: NotifierService,
     private userService: UserService,
     private rscService: ResourcesService,
-    private notifService: NotificationsService,
   ) {
     this.user = new User();
   }

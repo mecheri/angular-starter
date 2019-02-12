@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { NotifierService } from 'angular-notifier';
 import { UserService } from './../../services/user.service';
 import { ResourcesService } from '../../../../../core/services/resources.service';
-import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-user-new',
@@ -24,20 +24,20 @@ export class UserNewComponent implements OnInit {
   ];
 
   /**
-   * Creates an instance of UserNewComponent.
+   *Creates an instance of UserNewComponent.
    * @param {Router} router
    * @param {FormBuilder} fb
+   * @param {NotifierService} notifier
    * @param {UserService} userService
    * @param {ResourcesService} rscService
-   * @param {NotificationsService} notifService
    * @memberof UserNewComponent
    */
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private notifier: NotifierService,
     private userService: UserService,
-    private rscService: ResourcesService,
-    private notifService: NotificationsService
+    private rscService: ResourcesService
   ) { }
 
   ngOnInit() {
@@ -69,7 +69,7 @@ export class UserNewComponent implements OnInit {
       .subscribe(
         resp => {
           this.isFormSaved = true;
-          this.notifService.success(null, 'Success', { timeOut: 3000 });
+          this.notifier.notify('success', 'Operation successfully done !' );
           setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
         }
       );
