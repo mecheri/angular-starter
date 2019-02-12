@@ -1,14 +1,14 @@
-import { Angular4StarterPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('angular4-starter App', () => {
-  let page: Angular4StarterPage;
+describe('step16 App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new Angular4StarterPage();
+    page = new AppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });

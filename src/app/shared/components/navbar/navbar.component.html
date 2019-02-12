@@ -1,0 +1,38 @@
+<mz-navbar navbarClass="teal">
+    <div class="container">
+        <a href="#" class="brand-logo hide-on-med-and-down">ANGULAR CLI STARTER</a>
+        <mz-navbar-item-container [align]="'right'">
+            <mz-navbar-item *ngFor="let item of items">
+                <a routerLink="{{ item.url }}" id="{{ item.id }}">{{ item.name }}</a>
+            </mz-navbar-item>
+            <mz-navbar-item [active]="true"><a (click)="logout()"><i class="material-icons">power_settings_new</i></a></mz-navbar-item>
+        </mz-navbar-item-container>
+    </div>
+</mz-navbar>
+
+<!-- <mat-toolbar color="primary">
+    <span class="fill-remaining-space">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item>
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>people_outline</mat-icon>
+          <span>Connecting</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>videocam</mat-icon>
+          <span>Let's talk</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </span>
+    <span class="fill-remaining-space">Application Title</span>
+  </mat-toolbar> -->

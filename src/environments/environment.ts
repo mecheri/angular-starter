@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  envName: 'dev'
+  locale: 'fr-FR',
 };
