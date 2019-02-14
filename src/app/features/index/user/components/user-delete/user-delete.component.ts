@@ -48,7 +48,7 @@ export class UserDeleteComponent implements OnInit {
       .subscribe(
         () => {
           this.onAction.emit(true);
-          this.notifier.notify('success', 'Operation successfully done !' );
+          this.notifier.notify('success', 'Operation successfully done !');
         }
       );
   }

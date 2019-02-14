@@ -69,8 +69,8 @@ export class UserNewComponent implements OnInit {
       .subscribe(
         resp => {
           this.isFormSaved = true;
-          this.notifier.notify('success', 'Operation successfully done !' );
-          setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+          this.notifier.notify('success', 'Operation successfully done !');
+          this.router.navigate(['user', resp.id]);
         }
       );
   }

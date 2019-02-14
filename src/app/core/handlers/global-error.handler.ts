@@ -36,7 +36,7 @@ export class GlobalErrorHandler implements ErrorHandler {
             // Erreur serveur ou erreur de connexion
             if (!navigator.onLine) {
                 // Pas de connexion à internet
-                notifier.notify('warning', 'No Internet Connection');
+                this.zone.run(() => notifier.notify('warning', 'No Internet Connection'));
             } else {
                 if (router.url !== 'login' && [401, 403].includes(resp.status)) {
                     // Erreur HTTP (error.status === 401, 403)
@@ -54,5 +54,4 @@ export class GlobalErrorHandler implements ErrorHandler {
             router.navigate(['/error']);
         }
     }
-
 }
