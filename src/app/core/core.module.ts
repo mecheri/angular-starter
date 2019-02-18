@@ -40,10 +40,6 @@ import { environment } from '../../environments/environment';
   providers: [
     SettingsService,
     {
-      provide: LOCALE_ID,
-      useValue: environment.locale
-    },
-    {
       provide: APP_INITIALIZER,
       useFactory: (config: SettingsService) => () => config.load(),
       deps: [SettingsService],
@@ -55,6 +51,10 @@ import { environment } from '../../environments/environment';
       useFactory: (resources: ResourcesService) => () => resources.load(),
       deps: [ResourcesService],
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: environment.locale
     },
     {
       provide: HTTP_INTERCEPTORS,
