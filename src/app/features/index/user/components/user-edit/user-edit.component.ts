@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { User } from './../../models/user';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss']
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
   rsc: any;
   user: User;
   editForm: FormGroup;
@@ -51,6 +51,10 @@ export class UserEditComponent implements OnInit {
     this.loadResources();
     this.createForm();
     this.getUser();
+  }
+
+  ngOnDestroy() {
+    if (this.editForm) { this.editForm.reset(); }
   }
 
   loadResources() {

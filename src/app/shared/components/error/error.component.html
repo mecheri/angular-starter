@@ -1,0 +1,11 @@
+<div class="error-container">
+    <h1>Oops!!!</h1>
+    <div *ngIf="routeParams?.error">
+        <h5>{{ routeParams?.error }}</h5>
+        <div class="error-content">
+            {{ routeParams?.stack }}
+        </div>
+
+        <button mz-button (click)="home()">GO TO HOME</button>
+    </div>
+</div>

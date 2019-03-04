@@ -5,14 +5,21 @@ import {
     HttpRequest,
     HttpEvent
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 // RxJS
+import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 // Services
 import { Spinner } from './../services/spinner.service';
 
+/**
+ * Application spinner Interceptor
+ *
+ * @export
+ * @class SpinnerInterceptor
+ * @implements {SpinnerInterceptor}
+ */
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
     constructor(private spinner: Spinner) { }

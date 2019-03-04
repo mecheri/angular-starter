@@ -13,7 +13,7 @@ const userRoutes: Routes = [
   { path: '', component: UserComponent },
   { path: ':id', component: UserDetailComponent },
   { path: 'add/new', component: UserNewComponent, canDeactivate: [UserGuardService] },
-  { path: 'edit/:id', component: UserEditComponent, canDeactivate: [UserGuardService] },
+  { path: 'edit/:id', component: UserEditComponent },
 ];
 
 @NgModule({

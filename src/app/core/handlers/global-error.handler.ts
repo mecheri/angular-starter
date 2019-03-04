@@ -51,7 +51,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         } else {
             // Erreur JS coté client (Angular Error, ReferenceError...)
             // On redirige l'utilisateur vers la page d'erreur
-            router.navigate(['/error']);
+            this.zone.run(() => router.navigate(['/error'], {
+                queryParams: {
+                    error: resp.message,
+                    stack: resp.stack
+                }
+            }));
         }
     }
 }

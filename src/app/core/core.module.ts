@@ -6,6 +6,7 @@ import { NotifierModule } from 'angular-notifier';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
 // Interceptors
+import { ServerErrorInterceptor } from './interceptors/server-error.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
@@ -55,6 +56,11 @@ import { environment } from '../../environments/environment';
     {
       provide: LOCALE_ID,
       useValue: environment.locale
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorInterceptor,
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,

@@ -7,6 +7,9 @@ import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DialogModule } from 'primeng/dialog';
 
+// Flex Layout
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 // Ngx Materialize
 import {
   MzNavbarModule,
@@ -30,6 +33,7 @@ import {
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   imports: [
@@ -39,6 +43,9 @@ import { FooterComponent } from './components/footer/footer.component';
     BreadcrumbModule,
     DialogModule,
     TableModule,
+    // flex Layout
+    FlexLayoutModule,
+    // materialize
     MzNavbarModule,
     MzInputModule,
     MzSelectModule,
@@ -46,7 +53,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MzButtonModule,
     MzValidationModule,
     MzSpinnerModule,
-    // mat
+    // material
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
@@ -56,6 +63,7 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     SpinnerComponent,
     FooterComponent,
+    ErrorComponent,
   ],
   exports: [
     CommonModule,
@@ -67,6 +75,9 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     SpinnerComponent,
     FooterComponent,
+    // flex Layout
+    FlexLayoutModule,
+    // materialize
     MzNavbarModule,
     MzInputModule,
     MzSelectModule,
@@ -74,12 +85,11 @@ import { FooterComponent } from './components/footer/footer.component';
     MzButtonModule,
     MzValidationModule,
     MzSpinnerModule,
-    // mat
+    // material
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
     MatToolbarModule
-  ],
-  providers: []
+  ]
 })
 export class SharedModule { }
